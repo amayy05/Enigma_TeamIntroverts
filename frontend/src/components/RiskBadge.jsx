@@ -1,58 +1,67 @@
-/**
- * Risk badge utility component — matches NutriShield design system
- * Status: HIGH_RISK | CAUTION | VERIFY | LOWER_CONCERN
- */
-const BADGE_CONFIG = {
-  HIGH_RISK: { label: 'HIGH RISK', bg: 'bg-red-600', text: 'text-white', glow: 'badge-high' },
-  CAUTION: { label: 'CAUTION', bg: 'bg-amber-500', text: 'text-slate-900', glow: 'badge-caution' },
-  VERIFY: { label: 'VERIFY', bg: 'bg-yellow-400', text: 'text-slate-900', glow: 'badge-verify' },
-  LOWER_CONCERN: { label: 'LOWER CONCERN', bg: 'bg-emerald-500', text: 'text-white', glow: 'badge-safe' },
-};
-
-const STATUS_ICON = {
-  HIGH_RISK: 'dangerous',
-  CAUTION: 'warning',
-  VERIFY: 'help',
-  LOWER_CONCERN: 'check_circle',
-};
-
 export function RiskBadge({ status, size = 'md' }) {
-  const cfg = BADGE_CONFIG[status] || BADGE_CONFIG.LOWER_CONCERN;
-  const sizeClass = size === 'lg'
-    ? 'px-4 py-1.5 text-sm font-bold'
-    : 'px-2.5 py-0.5 text-[11px] font-semibold tracking-wide';
+  const configs = {
+    HIGH_RISK: {
+      bg: 'bg-risk-high',
+      text: 'text-white',
+      icon: 'warning',
+      label: 'High Risk'
+    },
+    CAUTION: {
+      bg: 'bg-risk-caution',
+      text: 'text-white',
+      icon: 'notifications',
+      label: 'Caution'
+    },
+    VERIFY: {
+      bg: 'bg-risk-verify',
+      text: 'text-[#4A2300]',
+      icon: 'help',
+      label: 'Verify'
+    },
+    LOWER_CONCERN: {
+      bg: 'bg-risk-safe',
+      text: 'text-white',
+      icon: 'eco',
+      label: 'Safe Choice'
+    }
+  };
+
+  const c = configs[status] || configs.LOWER_CONCERN;
+  
+  const sizeClasses = {
+    sm: 'px-2 py-1 text-[11px] gap-1',
+    md: 'px-3 py-1.5 text-[13px] gap-1.5',
+    lg: 'px-4 py-2 text-[15px] gap-2'
+  };
+
+  const iconSizes = { sm: '14px', md: '16px', lg: '20px' };
 
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full ${sizeClass} ${cfg.bg} ${cfg.text} ${cfg.glow}`}>
-      <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-        {STATUS_ICON[status] || 'info'}
+    <div className={`inline-flex items-center font-bold font-sans uppercase tracking-wide rounded-full shadow-sm ${c.bg} ${c.text} ${sizeClasses[size]}`}>
+      <span className="material-symbols-outlined" style={{ fontSize: iconSizes[size], fontVariationSettings: "'FILL' 1" }}>
+        {c.icon}
       </span>
-      {cfg.label}
-    </span>
-  );
-}
-
-export function RiskStatusIcon({ status }) {
-  const cfg = BADGE_CONFIG[status] || BADGE_CONFIG.LOWER_CONCERN;
-  const emoji = { HIGH_RISK: '🔴', CAUTION: '🟠', VERIFY: '🟡', LOWER_CONCERN: '🟢' };
-  return (
-    <span className={`inline-flex items-center gap-1 font-mono text-xs font-semibold ${cfg.text}`}>
-      {emoji[status] || '⚪'} {cfg.label}
-    </span>
+      <span>{c.label}</span>
+    </div>
   );
 }
 
 export function ConfidenceBar({ label, level }) {
-  const pct = level === 'high' ? 95 : level === 'medium' ? 70 : 45;
-  const color = level === 'high' ? 'bg-primary-container' : level === 'medium' ? 'bg-amber-500' : 'bg-error';
+  const levels = {
+    HIGH: { color: 'bg-risk-safe', width: 'w-full' },
+    MEDIUM: { color: 'bg-risk-verify', width: 'w-2/3' },
+    LOW: { color: 'bg-risk-caution', width: 'w-1/3' },
+  };
+  const c = levels[level] || levels.LOW;
+
   return (
-    <div className="space-y-1">
-      <div className="flex justify-between items-center">
-        <span className="text-body-sm font-body-sm text-on-surface-variant">{label}</span>
-        <span className={`text-label-sm font-label-sm font-mono uppercase ${level === 'high' ? 'text-primary' : level === 'medium' ? 'text-amber-400' : 'text-error'}`}>{level?.toUpperCase()}</span>
-      </div>
-      <div className="h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-        <div className={`h-full rounded-full ${color} transition-all duration-700`} style={{ width: `${pct}%` }} />
+    <div className="flex items-center justify-between p-3 rounded-2xl bg-surface-container border border-outline-variant">
+      <span className="text-[14px] font-sans text-on-surface font-semibold">{label}</span>
+      <div className="flex items-center gap-3">
+        <span className="text-[12px] font-bold text-on-surface-variant">{level}</span>
+        <div className="w-24 h-2 rounded-full bg-surface-container-high overflow-hidden">
+          <div className={`h-full rounded-full ${c.color} ${c.width}`}></div>
+        </div>
       </div>
     </div>
   );

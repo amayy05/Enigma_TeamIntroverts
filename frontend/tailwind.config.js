@@ -1,104 +1,56 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        // NutriShield Design System — from Stitch
-        'on-secondary': '#283044',
-        'secondary-fixed': '#dae2fd',
-        'on-tertiary-fixed': '#2a1700',
-        'on-tertiary': '#472a00',
-        'surface-dim': '#031427',
-        'on-tertiary-fixed-variant': '#653e00',
-        'secondary-container': '#3f465c',
-        'inverse-on-surface': '#213145',
-        'on-secondary-fixed': '#131b2e',
-        'tertiary-fixed': '#ffddb8',
-        'tertiary-fixed-dim': '#ffb95f',
-        'on-surface-variant': '#bbcabf',
-        'on-primary-fixed-variant': '#005236',
-        'surface': '#031427',
-        'on-tertiary-container': '#523200',
-        'inverse-primary': '#006c49',
-        'secondary': '#bec6e0',
-        'primary': '#4edea3',
-        'on-primary-fixed': '#002113',
-        'tertiary-container': '#e29100',
-        'surface-container': '#102034',
-        'surface-bright': '#2a3a4f',
-        'on-primary': '#003824',
-        'surface-container-lowest': '#000f21',
-        'on-surface': '#d3e4fe',
-        'on-primary-container': '#00422b',
-        'error': '#ffb4ab',
-        'tertiary': '#ffb95f',
-        'on-secondary-fixed-variant': '#3f465c',
-        'surface-container-highest': '#26364a',
-        'secondary-fixed-dim': '#bec6e0',
-        'primary-fixed-dim': '#4edea3',
-        'surface-container-low': '#0b1c30',
-        'on-background': '#d3e4fe',
-        'outline-variant': '#3c4a42',
-        'surface-tint': '#4edea3',
-        'inverse-surface': '#d3e4fe',
-        'primary-fixed': '#6ffbbe',
-        'outline': '#86948a',
-        'on-error-container': '#ffdad6',
-        'primary-container': '#10b981',
-        'surface-container-high': '#1b2b3f',
-        'on-secondary-container': '#adb4ce',
-        'surface-variant': '#26364a',
-        'on-error': '#690005',
-        'error-container': '#93000a',
-        'background': '#031427',
-        // Risk colors
-        'risk-high': '#ef4444',
-        'risk-caution': '#f59e0b',
-        'risk-verify': '#eab308',
-        'risk-safe': '#10b981',
+        // Warm, organic food-focused palette
+        background: '#FFFDF7', // Very light cream
+        surface: '#FFFDF7',
+        'surface-container': '#F8EFE0', // Soft beige for cards
+        'surface-container-high': '#F0E2CA', // Slightly darker beige
+        'surface-container-lowest': '#FFFFFF',
+        
+        primary: '#D3661B', // Deep warm orange/rust
+        'primary-container': '#EFA04F', // Bright orange/yellow
+        'on-primary': '#FFFFFF',
+        'on-primary-container': '#4A2300',
+
+        secondary: '#8AA348', // Leafy green
+        'secondary-container': '#A5C15F', 
+        'on-secondary': '#FFFFFF',
+
+        'on-surface': '#3A2718', // Deep brown (instead of black)
+        'on-surface-variant': '#634B39', // Medium brown
+        outline: '#D4C1A8',
+        'outline-variant': '#E8DCCB',
+        
+        // Risk colors (adjusted for this warm theme)
+        'risk-high': '#D9433B',
+        'risk-caution': '#E89124',
+        'risk-verify': '#E7BC25',
+        'risk-safe': '#7BA543',
       },
       fontFamily: {
-        'body-sm': ['Inter', 'sans-serif'],
-        'body-lg': ['Inter', 'sans-serif'],
-        'body-md': ['Inter', 'sans-serif'],
-        'label-md': ['JetBrains Mono', 'monospace'],
-        'headline-sm': ['Manrope', 'sans-serif'],
-        'headline-md': ['Manrope', 'sans-serif'],
-        'headline-lg': ['Manrope', 'sans-serif'],
-        'label-lg': ['JetBrains Mono', 'monospace'],
-        'label-sm': ['JetBrains Mono', 'monospace'],
-        sans: ['Inter', 'sans-serif'],
-        display: ['Manrope', 'sans-serif'],
+        sans: ['Nunito', 'sans-serif'],
+        display: ['Fraunces', 'serif'],
+        body: ['Nunito', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
+        // Override the previous ones
+        'body-sm': ['Nunito', 'sans-serif'],
+        'body-lg': ['Nunito', 'sans-serif'],
+        'body-md': ['Nunito', 'sans-serif'],
+        'label-md': ['Nunito', 'sans-serif'],
+        'headline-sm': ['Fraunces', 'serif'],
+        'headline-md': ['Fraunces', 'serif'],
+        'headline-lg': ['Fraunces', 'serif'],
+        'label-lg': ['Nunito', 'sans-serif'],
+        'label-sm': ['Nunito', 'sans-serif'],
       },
-      fontSize: {
-        'body-sm': ['12px', { lineHeight: '16px', fontWeight: '400' }],
-        'body-lg': ['16px', { lineHeight: '24px', fontWeight: '400' }],
-        'body-md': ['14px', { lineHeight: '20px', fontWeight: '400' }],
-        'label-md': ['12px', { lineHeight: '16px', fontWeight: '500' }],
-        'headline-sm': ['20px', { lineHeight: '28px', fontWeight: '600' }],
-        'headline-md': ['24px', { lineHeight: '32px', fontWeight: '600' }],
-        'headline-lg': ['32px', { lineHeight: '40px', fontWeight: '700' }],
-        'label-lg': ['14px', { lineHeight: '20px', fontWeight: '500' }],
-        'label-sm': ['10px', { lineHeight: '14px', fontWeight: '500' }],
-      },
-      borderRadius: {
-        DEFAULT: '0.25rem',
-        lg: '0.5rem',
-        xl: '0.75rem',
-        full: '9999px',
-      },
-      spacing: {
-        'space-sm': '0.5rem',
-        'space-md': '1rem',
-        'gutter': '1rem',
-        'space-xl': '2rem',
-        'margin': '1.5rem',
-        'space-xs': '0.25rem',
-        'space-lg': '1.5rem',
-      },
+      boxShadow: {
+        'soft': '0 10px 40px -10px rgba(211, 102, 27, 0.15)',
+        'float': '0 20px 50px -15px rgba(58, 39, 24, 0.1)',
+      }
     },
   },
   plugins: [],

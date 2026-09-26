@@ -37,4 +37,19 @@ export const api = {
     method: 'POST',
     body: JSON.stringify({ question, riskResult, foodName, profile }),
   }),
+
+  // Image Extraction
+  extractLabel: async (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    const res = await fetch(`${BASE}/extract-label`, {
+      method: 'POST',
+      body: formData
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Request failed' }));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+    return res.json();
+  }
 };

@@ -11,26 +11,26 @@
   user-select: none;
 }
 
+body {
+  @apply bg-background text-on-surface font-sans;
+}
+
 /* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #031427; }
-::-webkit-scrollbar-thumb { background: #26364a; border-radius: 9999px; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #FFFDF7; }
+::-webkit-scrollbar-thumb { background: #D4C1A8; border-radius: 9999px; }
 
 /* Selection */
-::selection { background: #10b981; color: #003824; }
+::selection { background: #EFA04F; color: #3A2718; }
 
 /* Smooth transitions globally */
-* { transition-property: color, background-color, border-color; transition-duration: 150ms; }
+* { transition-property: color, background-color, border-color, box-shadow, transform; transition-duration: 200ms; }
 
-/* Sidebar active indicator glow */
-.nav-active { box-shadow: inset 4px 0 0 #10b981; }
+/* Torn paper effect (using clip-path or a wavy SVG overlay in components) */
+.torn-edge {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 90% 95%, 85% 100%, 80% 95%, 75% 100%, 70% 95%, 65% 100%, 60% 95%, 55% 100%, 50% 95%, 45% 100%, 40% 95%, 35% 100%, 30% 95%, 25% 100%, 20% 95%, 15% 100%, 10% 95%, 5% 100%, 0% 95%);
+}
 
-/* Pulse animation for live indicators */
-@keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-.animate-pulse-slow { animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-
-/* Risk badge glow effects */
-.badge-high { box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
-.badge-caution { box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
-.badge-verify { box-shadow: 0 0 8px rgba(234, 179, 8, 0.35); }
-.badge-safe { box-shadow: 0 0 8px rgba(16, 185, 129, 0.35); }
+.torn-edge-top {
+  clip-path: polygon(0% 5%, 5% 0%, 10% 5%, 15% 0%, 20% 5%, 25% 0%, 30% 5%, 35% 0%, 40% 5%, 45% 0%, 50% 5%, 55% 0%, 60% 5%, 65% 0%, 70% 5%, 75% 0%, 80% 5%, 85% 0%, 90% 5%, 95% 0%, 100% 5%, 100% 100%, 0% 100%);
+}

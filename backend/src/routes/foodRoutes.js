@@ -3,8 +3,11 @@ const router = express.Router();
 const { analyzeIngredients } = require('../ingredientAnalyzer');
 const { analyzeNutrition } = require('../nutritionAnalyzer');
 const { runRiskEngine } = require('../riskEngine');
-const { generateExplanation } = require('../llmService');
+const { generateExplanation, extractLabelFromImage } = require('../llmService');
 const demoFoods = require('../../data/demoFoods.json');
+const multer = require('multer');
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 
 // In-memory profile store (per session — use DB for production)
 let userProfile = {
@@ -85,6 +88,26 @@ router.post('/analyze', async (req, res) => {
   } catch (error) {
     console.error('Analysis error:', error);
     res.status(500).json({ error: 'Analysis failed. Please try again.' });
+  }
+});
+
+// POST /api/extract-label
+router.post('/extract-label', upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image uploaded.' });
+    }
+    const base64Image = req.file.buffer.toString('base64');
+    const mimeType = req.file.mimetype;
+    
+    const result = await extractLabelFromImage(base64Image, mimeType);
+    if (result.error) {
+      return res.status(500).json(result);
+    }
+    res.json(result);
+  } catch (error) {
+    console.error('Extraction error:', error);
+    res.status(500).json({ error: 'Label extraction failed. Please try again.' });
   }
 });
 
