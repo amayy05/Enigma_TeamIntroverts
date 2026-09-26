@@ -1,0 +1,1319 @@
+# NutriShield — Personalized Food Risk Intelligence
+
+> **Tagline:** Don't just scan what's in your food. Understand what it means for you.
+
+## 1. Project Overview
+
+NutriShield is a personalized dietary decision-support system designed to help people understand food-related risks in everyday situations.
+
+The system does not simply classify food as universally "healthy" or "unhealthy." Instead, it evaluates available food information against the individual's declared health conditions, allergies, and dietary preferences.
+
+### Core Differentiator
+
+> **Same Food ≠ Same Risk**
+
+A food may be lower concern for one person but require caution or verification for another person because their circumstances are different.
+
+### Core Value Proposition
+
+> **Most food scanners tell you what is inside a product. NutriShield tells you which parts of that information may matter specifically for you.**
+
+---
+
+# 2. Problem Statement
+
+Millions of people managing conditions such as diabetes, CKD, hypertension, PCOS, and food allergies make food decisions every day using incomplete, confusing, or marketing-focused information.
+
+Examples:
+
+- A "sugar-free" product may still contain substantial carbohydrates or refined carbohydrate indicators.
+- A packaged food may contain significant sodium that is relevant to someone managing hypertension.
+- A spice mix or processed food may contain a direct or derived allergen.
+- An ingredient may have an ambiguous source, making a definitive conclusion inappropriate.
+- Restaurant, tiffin-service, buffet, and informal food information may be incomplete.
+
+NutriShield addresses this gap by translating available food information into personalized, explainable dietary considerations.
+
+---
+
+# 3. Design Principle
+
+The system should not primarily ask:
+
+> "Is this food healthy?"
+
+It should ask:
+
+> "Given this person's circumstances and the information available about this food, what should they pay attention to?"
+
+This keeps the system personalized, explainable, and responsible.
+
+---
+
+# 4. Supported User Profile
+
+The user can configure:
+
+## Health Conditions
+
+- Diabetes
+- Chronic Kidney Disease (CKD)
+- Hypertension
+- PCOS
+
+## Food Allergies
+
+- Peanut
+- Milk / Dairy
+- Soy
+- Wheat
+- Tree Nuts
+- Other
+
+## Dietary Preferences / Restrictions
+
+- Vegetarian
+- Vegan
+- Gluten-free
+- Low-sodium
+- Low-sugar
+
+The architecture should remain extensible so additional conditions, allergies, and dietary restrictions can be added later.
+
+---
+
+# 5. Food Input Modes
+
+The MVP should support multiple ways of providing food information.
+
+## Primary MVP Input
+
+- Ingredient text
+- Nutrition information
+- Predefined demo foods
+
+## Extended Input
+
+- Food-label image
+- OCR extraction
+- Barcode/product lookup
+- Restaurant menu text
+- Tiffin-service menu
+- Buffet/food description
+- Natural-language food queries
+
+The system must account for incomplete or ambiguous information instead of assuming missing information is safe.
+
+---
+
+# 6. Example Demo Foods
+
+The initial demo dataset can include:
+
+- Sugar-Free Biscuit
+- Instant Noodles
+- Spice Mix
+- Milk Chocolate
+- Packaged Juice
+- Protein Bar
+- Breakfast Cereal
+- Salad Dressing
+
+The demo dataset should contain realistic ingredient lists, nutrition information, allergen information, and intentionally ambiguous examples for demonstrating the VERIFY state.
+
+---
+
+# 7. High-Level System Architecture
+
+```text
+                         ┌─────────────────────────────┐
+                         │            USER             │
+                         │    Patient / Caregiver       │
+                         └──────────────┬──────────────┘
+                                        │
+                                        ▼
+                 ┌──────────────────────────────────────────┐
+                 │             PRESENTATION LAYER            │
+                 │                                          │
+                 │  • Health Profile                        │
+                 │  • Food / Ingredient Input               │
+                 │  • Label Image Upload                    │
+                 │  • Nutrition Input                       │
+                 │  • Personalized Risk Dashboard           │
+                 │  • Explainable Results                   │
+                 │  • AI Food Chatbot                       │
+                 └───────────────────┬──────────────────────┘
+                                     │
+                                     ▼
+                 ┌──────────────────────────────────────────┐
+                 │              INPUT PROCESSING             │
+                 │                                          │
+                 │  • OCR / Text Extraction                 │
+                 │  • Ingredient Normalization              │
+                 │  • Nutrition Data Extraction             │
+                 │  • Food / Menu Parsing                   │
+                 │  • LLM-assisted interpretation           │
+                 └───────────────────┬──────────────────────┘
+                                     │
+                       ┌─────────────┴─────────────┐
+                       ▼                           ▼
+          ┌────────────────────────┐    ┌───────────────────────┐
+          │ INGREDIENT             │    │ NUTRITION             │
+          │ INTELLIGENCE ENGINE    │    │ ANALYSIS ENGINE       │
+          │                        │    │                       │
+          │ • Ingredient matching  │    │ • Sugar               │
+          │ • Hidden ingredients   │    │ • Carbohydrates       │
+          │ • Derived ingredients  │    │ • Sodium              │
+          │ • Allergens            │    │ • Potassium            │
+          │ • Additives            │    │ • Phosphorus           │
+          │ • Ambiguous sources    │    │ • Serving size         │
+          └────────────┬───────────┘    └───────────┬───────────┘
+                       │                            │
+                       └─────────────┬──────────────┘
+                                     ▼
+                 ┌──────────────────────────────────────────┐
+                 │          PERSONALIZATION ENGINE           │
+                 │                                          │
+                 │  USER HEALTH & DIETARY PROFILE            │
+                 │                                          │
+                 │  • Diabetes                              │
+                 │  • CKD                                   │
+                 │  • Hypertension                          │
+                 │  • PCOS                                  │
+                 │  • Food Allergies                        │
+                 │  • Dietary Restrictions                  │
+                 └───────────────────┬──────────────────────┘
+                                     │
+                                     ▼
+                 ┌──────────────────────────────────────────┐
+                 │          PERSONALIZED RISK ENGINE         │
+                 │                                          │
+                 │      Food Information × User Profile      │
+                 │                       │                  │
+                 │                       ▼                  │
+                 │     ┌──────────────────────────────┐     │
+                 │     │ Risk Classification          │     │
+                 │     │                              │     │
+                 │     │ 🔴 HIGH RISK                 │     │
+                 │     │ 🟠 CAUTION                   │     │
+                 │     │ 🟡 VERIFY                    │     │
+                 │     │ 🟢 LOWER CONCERN             │     │
+                 │     └──────────────┬───────────────┘     │
+                 └────────────────────┼─────────────────────┘
+                                      │
+                                      ▼
+                 ┌──────────────────────────────────────────┐
+                 │       EXPLAINABILITY & LLM LAYER         │
+                 │                                          │
+                 │  • Why was it flagged?                   │
+                 │  • Which ingredient/nutrient caused it?  │
+                 │  • Which profile factor is relevant?     │
+                 │  • Evidence / confidence                │
+                 │  • Missing information                   │
+                 │  • Verification guidance                 │
+                 │  • Plain-language explanation            │
+                 │  • Conversational food Q&A               │
+                 │  • Follow-up questions                   │
+                 └───────────────────┬──────────────────────┘
+                                     │
+                                     ▼
+                 ┌──────────────────────────────────────────┐
+                 │               USER OUTPUT                 │
+                 │                                          │
+                 │       Personalized Food Risk Report       │
+                 │                                          │
+                 │  Risk status + explanation               │
+                 │  Relevant ingredients                    │
+                 │  Nutrition snapshot                      │
+                 │  Evidence + confidence                   │
+                 │  Limitations / missing information       │
+                 │  Responsible guidance                    │
+                 │  AI Food Chatbot                         │
+                 └──────────────────────────────────────────┘
+
+
+              ┌─────────────────────────────────────────┐
+              │           KNOWLEDGE & DATA LAYER        │
+              │                                         │
+              │  • Ingredient Knowledge Base            │
+              │  • Allergen Database                    │
+              │  • Nutrition Database                   │
+              │  • Condition-Risk Rules                 │
+              │  • Dietary Restriction Rules            │
+              │  • Hidden / Derived Ingredient Mapping  │
+              │  • Demo Food Dataset                    │
+              │  • Food Label Data                      │
+              └─────────────────────────────────────────┘
+```
+
+---
+
+# 8. Core Data Flow
+
+```text
+USER PROFILE
+     ↓
+FOOD / LABEL / MENU INPUT
+     ↓
+TEXT / OCR / NUTRITION EXTRACTION
+     ↓
+INGREDIENT NORMALIZATION
+     ↓
+INGREDIENT + NUTRITION ANALYSIS
+     ↓
+HIDDEN / DERIVED INGREDIENT DETECTION
+     ↓
+PERSONALIZATION
+     ↓
+STRUCTURED RISK ENGINE
+     ↓
+RISK CLASSIFICATION
+     ↓
+EXPLAINABILITY + LLM LAYER
+     ↓
+PERSONALIZED FOOD REPORT
+     ↓
+OPTIONAL CHATBOT FOLLOW-UP
+     ↓
+INFORMED USER DECISION
+```
+
+---
+
+# 9. Ingredient Intelligence
+
+The Ingredient Intelligence Engine converts messy food information into structured information.
+
+It should identify:
+
+- Direct ingredients
+- Ingredient synonyms
+- Derived ingredients
+- Hidden/indirect ingredient relationships
+- Allergens
+- Additives
+- Nutritionally relevant ingredients
+- Ambiguous ingredients
+- Unspecified ingredient sources
+
+### Examples
+
+| Ingredient | Interpretation |
+|---|---|
+| Casein | Milk-derived |
+| Whey | Milk-derived |
+| Lactose | Milk-derived |
+| Maltodextrin | Carbohydrate-related |
+| Gluten | Relevant to gluten/wheat restrictions |
+| Peanut powder | Peanut-derived |
+| Vegetable protein | Source may require verification |
+
+The system should maintain confidence for ingredient interpretations.
+
+---
+
+# 10. Ingredient Knowledge Base
+
+A structured knowledge base should be maintained in JSON or another simple data format.
+
+Example structure:
+
+```json
+{
+  "sugar": {
+    "category": "added_sugar",
+    "aliases": ["sucrose", "cane sugar"],
+    "relevantFor": ["diabetes", "pcos"],
+    "confidence": "high"
+  },
+  "whey": {
+    "category": "milk_derived",
+    "allergen": "milk",
+    "relevantFor": ["milk_allergy"],
+    "confidence": "high"
+  }
+}
+```
+
+The initial MVP can contain a curated set of important ingredients rather than a massive external dataset.
+
+---
+
+# 11. Nutrition Analysis Engine
+
+The Nutrition Analysis Engine should extract and interpret available nutrition information.
+
+Relevant fields include:
+
+- Calories
+- Total carbohydrates
+- Added sugar
+- Total sugar
+- Sodium
+- Potassium
+- Phosphorus
+- Serving size
+- Protein
+- Fat
+
+Condition-specific relevance:
+
+### Diabetes
+
+Relevant information may include:
+
+- Added sugar
+- Total carbohydrate
+- Refined carbohydrate indicators
+
+### Hypertension
+
+Relevant information may include:
+
+- Sodium
+
+### CKD
+
+Relevant information may include:
+
+- Sodium
+- Potassium
+- Phosphorus
+
+### PCOS
+
+Relevant information may include:
+
+- Added sugar
+- Refined carbohydrate indicators
+
+The system should not invent missing nutrition values.
+
+---
+
+# 12. Personalization Engine
+
+The Personalization Engine combines:
+
+```text
+USER PROFILE
++
+FOOD INFORMATION
++
+INGREDIENT KNOWLEDGE
++
+NUTRITION INFORMATION
++
+CONDITION / DIETARY RULES
+```
+
+It determines which findings are relevant to the individual user.
+
+The same food should be capable of producing different results for different profiles.
+
+---
+
+# 13. Personalized Risk Engine
+
+The Personalized Risk Engine is the authoritative decision layer for risk classification.
+
+The LLM must NOT independently determine the risk classification.
+
+The rule engine should produce one or more of:
+
+### 🔴 HIGH RISK
+
+Used when there is a strong/direct conflict based on available information.
+
+Example:
+
+```text
+User allergy: Peanut
+Detected ingredient: Peanut
+→ HIGH RISK
+```
+
+### 🟠 CAUTION
+
+Used when food information contains a factor that may be particularly relevant to the user's profile.
+
+Example:
+
+```text
+User condition: Hypertension
+Detected nutrition concern: High sodium
+→ CAUTION
+```
+
+### 🟡 VERIFY
+
+Used when information is incomplete, ambiguous, or source-dependent.
+
+Example:
+
+```text
+User allergy: Peanut
+Ingredient: Vegetable protein
+Source: Unspecified
+→ VERIFY
+```
+
+### 🟢 LOWER CONCERN
+
+Used when no relevant conflict is detected from the information available.
+
+Do NOT claim that the food is universally "safe."
+
+Preferred wording:
+
+> **No relevant conflict detected based on the information available.**
+
+---
+
+# 14. Explainability Layer
+
+Every important alert should answer four questions:
+
+1. **What was detected?**
+2. **Why was it flagged?**
+3. **Which ingredient or nutrient caused the finding?**
+4. **What should the user verify or consider next?**
+
+Example:
+
+```text
+Finding:
+Maltodextrin detected
+
+Relevant profile factor:
+Diabetes
+
+Why it is highlighted:
+The ingredient is carbohydrate-derived and is therefore
+highlighted as relevant to the user's declared profile.
+
+Evidence:
+Explicitly listed in the provided ingredient information.
+
+Confidence:
+High
+```
+
+---
+
+# 15. Confidence & Information Quality
+
+The system must communicate uncertainty.
+
+### High Confidence
+
+- Explicit ingredient match
+- Explicit allergen declaration
+- Direct nutrition value
+
+### Medium Confidence
+
+- Derived ingredient classification
+- Normalized synonym
+- Structured inference from known ingredient relationships
+
+### Low Confidence / Verification Required
+
+- Ambiguous ingredient source
+- Incomplete label
+- Unspecified allergen source
+- OCR uncertainty
+- User-provided incomplete information
+
+This layer directly addresses the problem statement's requirement to account for variability and limitations in real-world information.
+
+---
+
+# 16. LLM Reasoning / Explanation Layer
+
+The LLM is an interpretation and conversational layer over structured system output.
+
+It should NOT replace the rule-based Personalized Risk Engine.
+
+### Responsibilities
+
+The LLM can:
+
+- Explain structured findings in simple language
+- Translate technical ingredient information into understandable language
+- Summarize why a product was flagged
+- Explain individual ingredients
+- Answer follow-up questions
+- Explain why a "sugar-free" product may still receive a carbohydrate-related caution
+- Explain uncertainty and missing information
+- Help users understand what information they should verify
+- Generate natural-language summaries of the structured analysis
+
+### Example
+
+Structured engine output:
+
+```text
+Ingredient: maltodextrin
+Category: carbohydrate_related
+Relevant profile: diabetes
+Risk: CAUTION
+Confidence: HIGH
+Evidence: explicit ingredient match
+```
+
+LLM explanation:
+
+> "Although this product is marketed as sugar-free, its ingredient list contains maltodextrin, a carbohydrate-derived ingredient. Because your profile includes diabetes, we have highlighted it for consideration."
+
+The LLM should explain the engine's findings rather than invent new medical conclusions.
+
+---
+
+# 17. AI Food Chatbot
+
+The result page should include an optional conversational interface such as:
+
+> **💬 Ask NutriShield**
+
+Users can ask:
+
+- "Why was this food flagged?"
+- "Why is this biscuit flagged if it says sugar-free?"
+- "What is maltodextrin?"
+- "Why is whey relevant to my profile?"
+- "Which ingredient caused the allergy warning?"
+- "What information should I verify?"
+- "Explain this result in simple words."
+
+The chatbot should use the current structured analysis as context.
+
+It should not provide diagnosis, treatment, or unsupported medical claims.
+
+---
+
+# 18. Result Screen
+
+The main result should be a Personalized Food Risk Report.
+
+Recommended structure:
+
+```text
+┌─────────────────────────────────────────────┐
+│           PERSONALIZED FOOD REPORT           │
+├─────────────────────────────────────────────┤
+│                                             │
+│  Food / Product Name                        │
+│                                             │
+│       🟠 CAUTION                            │
+│       Relevant concerns detected            │
+│                                             │
+├─────────────────────────────────────────────┤
+│  WHY WAS IT FLAGGED?                        │
+│                                             │
+│  🍬 Refined carbohydrate                    │
+│     Relevant to: Diabetes                   │
+│                                             │
+│  🧂 Sodium                                  │
+│     Relevant to: Hypertension               │
+│                                             │
+├─────────────────────────────────────────────┤
+│  INGREDIENTS OF CONCERN                     │
+│                                             │
+│  Maltodextrin                               │
+│  Salt                                       │
+│                                             │
+├─────────────────────────────────────────────┤
+│  NUTRITION SNAPSHOT                         │
+│                                             │
+│  Calories                                    │
+│  Carbohydrates                               │
+│  Sugar                                       │
+│  Sodium                                      │
+│                                             │
+├─────────────────────────────────────────────┤
+│  🔍 INFORMATION CONFIDENCE                  │
+│                                             │
+│  Ingredient match       HIGH                │
+│  Nutrition information HIGH                 │
+│  Allergen information  HIGH                 │
+│                                             │
+├─────────────────────────────────────────────┤
+│  ⚠️ LIMITATIONS                             │
+│                                             │
+│  Analysis is based on information available.│
+│  Ingredient sources may vary.                │
+│                                             │
+├─────────────────────────────────────────────┤
+│  💡 GUIDANCE                                │
+│                                             │
+│  Review relevant nutrition and allergen     │
+│  information before making a decision.      │
+│                                             │
+├─────────────────────────────────────────────┤
+│  💬 ASK NUTRISHIELD                         │
+│                                             │
+│  Ask questions about this result.           │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
+---
+
+# 19. Risk Breakdown
+
+The result can additionally show a category-level breakdown:
+
+```text
+PERSONALIZED RISK BREAKDOWN
+
+Allergens             🔴 High
+Blood Sugar           🟠 Caution
+Sodium                🟠 Caution
+Kidney-related        🟢 No relevant conflict detected
+Dietary restrictions  🟢 No conflict detected
+```
+
+This makes the personalization logic visible to the user and judges.
+
+---
+
+# 20. "Why Am I Seeing This?" Feature
+
+Each result should optionally provide a short explanation:
+
+> Your result is personalized using the health conditions, allergies, and dietary preferences you provided. NutriShield does not label food universally as good or bad; it identifies information that may be relevant to your individual profile.
+
+---
+
+# 21. LLM Safety Architecture
+
+The system should follow this separation:
+
+```text
+                 USER / FOOD INPUT
+                         │
+                         ▼
+                 AI / OCR / NLP
+                         │
+                         ▼
+              STRUCTURED FOOD DATA
+                         │
+                         ▼
+              PERSONALIZED RULE ENGINE
+                         │
+                         ▼
+                 STRUCTURED FINDINGS
+                         │
+                         ▼
+                    LLM LAYER
+                         │
+              ┌──────────┴──────────┐
+              ▼                     ▼
+        Explanation             Chatbot
+              │                     │
+              └──────────┬──────────┘
+                         ▼
+                     USER OUTPUT
+```
+
+### Critical Rule
+
+The LLM must not:
+
+- Independently classify a food as medically safe
+- Override the structured risk engine
+- Invent nutrition values
+- Invent ingredients
+- Invent allergen presence
+- Diagnose a condition
+- Prescribe treatment
+- Present uncertain information as certain
+
+When information is insufficient, the system should say so.
+
+---
+
+# 22. Example Personalized Scenarios
+
+## Scenario 1 — Diabetes + Hypertension
+
+Food:
+
+**Sugar-Free Biscuit**
+
+Possible findings:
+
+- Added/refined carbohydrate indicator → 🟠 Caution
+- Sodium → 🟠 Caution
+- Peanut → 🟢 Not detected
+
+Explanation:
+
+> "Sugar-free does not necessarily mean carbohydrate-free. The ingredient and nutrition information contains carbohydrate-related factors that are relevant to your profile."
+
+---
+
+## Scenario 2 — CKD + Hypertension
+
+Food:
+
+**Instant Noodles**
+
+Possible findings:
+
+- Sodium → 🟠 Caution / higher concern depending on configured threshold
+- Potassium → Consider if available
+- Phosphorus → Consider if available
+
+The system should only classify according to configured rules and available information.
+
+---
+
+## Scenario 3 — Peanut Allergy
+
+Food:
+
+**Spice Mix**
+
+Ingredient:
+
+> Vegetable protein
+
+Source:
+
+> Unspecified
+
+Result:
+
+🟡 **VERIFY**
+
+Explanation:
+
+> "The source of the ingredient is not specified. Because you have declared a peanut allergy, verify the manufacturer's allergen information."
+
+---
+
+## Scenario 4 — Milk Allergy
+
+Food:
+
+**Milk Chocolate**
+
+Ingredient:
+
+> Milk solids / whey
+
+Result:
+
+🔴 **HIGH RISK**
+
+Reason:
+
+> Direct milk-derived ingredient detected and relevant to the user's declared milk allergy.
+
+---
+
+## Scenario 5 — Diabetes
+
+Food:
+
+**Packaged Juice**
+
+Possible findings:
+
+- Added sugar → 🟠 Caution
+- Total carbohydrate → relevant consideration
+
+The system should explain the finding rather than simply labeling the food "bad."
+
+---
+
+# 23. Backend Architecture
+
+```text
+React Frontend
+       │
+       │ HTTP / REST API
+       ▼
+Node.js + Express
+       │
+       ├───────────────┐
+       ▼               ▼
+Ingredient         Nutrition
+Analyzer           Analyzer
+       │               │
+       └───────┬───────┘
+               ▼
+        Personalization
+             Engine
+               │
+               ▼
+        Structured Risk
+             Engine
+               │
+               ▼
+        Structured Result
+               │
+               ▼
+          LLM Service
+               │
+        ┌──────┴──────┐
+        ▼             ▼
+   Explanation     Chatbot
+               │
+               ▼
+        Personalized Result
+```
+
+---
+
+# 24. Suggested Frontend Structure
+
+```text
+frontend/
+│
+├── src/
+│   ├── components/
+│   │   ├── ProfilePanel
+│   │   ├── FoodAnalyzer
+│   │   ├── FoodInput
+│   │   ├── LabelUploader
+│   │   ├── IngredientList
+│   │   ├── NutritionSnapshot
+│   │   ├── RiskCard
+│   │   ├── RiskBreakdown
+│   │   ├── ExplanationPanel
+│   │   ├── ConfidenceIndicator
+│   │   ├── LimitationNotice
+│   │   ├── RecommendationPanel
+│   │   └── FoodChatbot
+│   │
+│   ├── pages/
+│   │   ├── Profile
+│   │   ├── Dashboard
+│   │   ├── Analyzer
+│   │   └── Results
+│   │
+│   ├── data/
+│   ├── utils/
+│   ├── services/
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+└── public/
+```
+
+---
+
+# 25. Suggested Backend Structure
+
+```text
+backend/
+│
+├── src/
+│   ├── server.js
+│   ├── riskEngine.js
+│   ├── ingredientAnalyzer.js
+│   ├── nutritionAnalyzer.js
+│   ├── personalizationEngine.js
+│   ├── llmService.js
+│   ├── ocrService.js
+│   │
+│   └── routes/
+│       ├── profileRoutes.js
+│       ├── foodRoutes.js
+│       ├── analysisRoutes.js
+│       └── chatRoutes.js
+│
+└── data/
+    ├── ingredients.json
+    ├── conditions.json
+    ├── riskRules.json
+    ├── dietaryRules.json
+    ├── allergens.json
+    └── demoFoods.json
+```
+
+---
+
+# 26. Data Layer
+
+The initial MVP does not require a massive machine-learning dataset.
+
+A curated structured knowledge base is sufficient for the core decision-support engine.
+
+Recommended initial scope:
+
+- 40–60 important ingredients
+- 15–20 derived/hidden ingredient mappings
+- 5 major health conditions/categories
+- 6–8 common allergens
+- 10–15 dietary restrictions/rules
+- 20–30 transparent risk rules
+- 8–10 demo foods
+
+The architecture should allow later integration with larger verified food databases.
+
+---
+
+# 27. AI / NLP Responsibilities
+
+AI can be used for:
+
+- OCR cleanup
+- Ingredient extraction
+- Ingredient synonym recognition
+- Natural-language food parsing
+- Restaurant/menu parsing
+- Ingredient explanation
+- Personalized result explanation
+- Conversational Q&A
+
+Structured rules should remain responsible for the core risk classification.
+
+---
+
+# 28. Technology Stack
+
+## Frontend
+
+- React
+- Vite
+- JavaScript
+- CSS
+
+## Backend
+
+- Node.js
+- Express.js
+
+## Risk Engine
+
+- JavaScript
+- Transparent rule-based logic
+- Structured JSON knowledge base
+
+## AI
+
+- LLM API
+- NLP-assisted ingredient interpretation
+- LLM explanation and conversational layer
+
+## OCR
+
+- Browser/server OCR or AI vision/OCR service
+
+## Data
+
+- JSON for hackathon MVP
+- Optional database for persistent user/profile/history data
+
+## API
+
+- REST
+
+## Deployment
+
+- Vercel / suitable cloud platform
+
+---
+
+# 29. API Concept
+
+Possible endpoints:
+
+```text
+POST /api/profile
+GET  /api/profile
+
+POST /api/analyze
+POST /api/analyze/label
+
+GET  /api/demo-foods
+GET  /api/ingredients/:name
+
+POST /api/chat
+
+GET  /api/history
+```
+
+### Example Analyze Request
+
+```json
+{
+  "profile": {
+    "conditions": ["diabetes", "hypertension"],
+    "allergies": ["peanut"],
+    "dietaryRestrictions": ["low-sodium"]
+  },
+  "food": {
+    "name": "Sugar-Free Biscuit",
+    "ingredients": "Wheat flour, maltodextrin, vegetable oil, milk solids, salt",
+    "nutrition": {
+      "carbohydrates": 22,
+      "sugar": 0,
+      "sodium": 180
+    }
+  }
+}
+```
+
+### Example Structured Result
+
+```json
+{
+  "overallStatus": "CAUTION",
+  "findings": [
+    {
+      "category": "carbohydrate",
+      "status": "CAUTION",
+      "trigger": "maltodextrin",
+      "relevantProfileFactor": "diabetes",
+      "confidence": "high"
+    },
+    {
+      "category": "sodium",
+      "status": "CAUTION",
+      "trigger": "sodium",
+      "relevantProfileFactor": "hypertension",
+      "confidence": "high"
+    }
+  ],
+  "limitations": [],
+  "missingInformation": []
+}
+```
+
+The LLM receives this structured result to generate explanations and answer questions.
+
+---
+
+# 30. Responsible Medical / Dietary Positioning
+
+NutriShield is a decision-support and educational system.
+
+It should NOT claim to:
+
+- Diagnose disease
+- Treat disease
+- Replace a doctor or dietitian
+- Guarantee a food is safe
+- Guarantee a food will cause harm
+- Provide individualized medical prescriptions
+
+Preferred language:
+
+- "may be relevant"
+- "consider"
+- "caution"
+- "verify"
+- "based on the information available"
+- "your declared profile"
+- "no relevant conflict detected"
+
+Avoid unsupported absolute statements.
+
+---
+
+# 31. Safety Disclaimer
+
+> **NutriShield provides informational dietary decision support based on the information supplied by the user and available food-label data. It does not diagnose, treat, or replace advice from a qualified healthcare professional.**
+
+---
+
+# 32. Future Scope
+
+Potential future extensions:
+
+- Advanced OCR
+- Barcode scanning
+- Verified food databases
+- Restaurant menu analysis
+- Tiffin-service menu analysis
+- Buffet food analysis
+- Grocery-store integration
+- Voice-based accessibility
+- Regional food recognition
+- Clinician-configured dietary thresholds
+- Long-term dietary-risk trends
+- Mobile application
+- Healthcare-provider integration
+- Personalized food history
+- More comprehensive allergen databases
+- External verified nutrition databases
+
+---
+
+# 33. Development Batches
+
+## Batch 1 — Foundation
+
+- React + Vite frontend
+- Node.js + Express backend
+- Base project structure
+- Initial dashboard
+- Basic navigation
+- Profile screen foundation
+
+## Batch 2 — Personalization
+
+- Health conditions
+- Allergies
+- Dietary restrictions
+- Profile storage/state
+- Personalized profile display
+
+## Batch 3 — Ingredient Intelligence
+
+- Ingredient knowledge base
+- Ingredient normalization
+- Synonym matching
+- Hidden/derived ingredients
+- Allergen mapping
+- Ambiguous-source handling
+
+## Batch 4 — Risk Engine
+
+- Personalized rule engine
+- HIGH RISK
+- CAUTION
+- VERIFY
+- LOWER CONCERN
+- Evidence and confidence output
+
+## Batch 5 — Food Analyzer
+
+- Ingredient input
+- Nutrition input
+- Demo foods
+- Nutrition analysis
+- Food analysis API
+
+## Batch 6 — Explainability
+
+- Why flagged
+- Trigger ingredient/nutrient
+- Relevant profile factor
+- Evidence
+- Confidence
+- Missing information
+- Limitations
+- Responsible guidance
+
+## Batch 7 — LLM / AI Layer
+
+- LLM explanation generation
+- Food explanation
+- Ingredient explanations
+- Context-aware result summary
+- "Why am I seeing this?" explanation
+- AI Food Chatbot
+- Follow-up questions using structured analysis context
+
+## Batch 8 — OCR / Advanced Input
+
+- Food-label image upload
+- OCR extraction
+- OCR cleanup
+- Natural-language food/menu parsing
+
+## Batch 9 — UI / UX
+
+- Responsive design
+- Elder/user-friendly readability
+- Clear visual risk hierarchy
+- Animations where useful
+- Accessibility
+- Loading/error states
+- Chatbot UX
+
+## Batch 10 — Demo & Hackathon Readiness
+
+- Demo scenarios
+- Test cases
+- Error handling
+- README
+- Architecture documentation
+- API documentation
+- Screenshots
+- Demo script
+- Final deployment
+- Final safety disclaimer
+
+---
+
+# 34. Demonstration Flow
+
+Recommended live demonstration:
+
+```text
+1. Create user profile
+        ↓
+2. Select Diabetes + Hypertension + Peanut Allergy
+        ↓
+3. Select "Sugar-Free Biscuit"
+        ↓
+4. Analyze ingredients + nutrition
+        ↓
+5. Show personalized risk
+        ↓
+6. Show why it was flagged
+        ↓
+7. Show confidence and evidence
+        ↓
+8. Ask AI:
+   "Why is this flagged if it is sugar-free?"
+        ↓
+9. LLM explains the structured findings
+        ↓
+10. Change user profile
+        ↓
+11. Analyze the same food again
+        ↓
+12. Demonstrate:
+    SAME FOOD ≠ SAME RISK
+```
+
+This demonstrates the central differentiator in a short, understandable flow.
+
+---
+
+# 35. Core Product Statement
+
+> **NutriShield does not tell everyone what food is good or bad. It translates the information already present in food labels, menus, and nutrition data according to the individual's circumstances, then explains why certain ingredients or nutrients may matter to that person.**
+
+---
+
+# 36. Final Architecture Principle
+
+The system should maintain a clear separation between:
+
+```text
+AI / OCR / NLP
+       ↓
+INTERPRET FOOD INFORMATION
+       ↓
+KNOWLEDGE BASE
+       ↓
+PERSONALIZED RULE ENGINE
+       ↓
+DETERMINE STRUCTURED FINDINGS
+       ↓
+LLM
+       ↓
+EXPLAIN + CONVERSE
+       ↓
+USER
+```
+
+This separation makes NutriShield:
+
+- Personalized
+- Explainable
+- Transparent
+- Extensible
+- Demonstrable
+- Responsible
+- Suitable for a clinical decision-support prototype without presenting itself as a medical diagnostic system
