@@ -1,0 +1,402 @@
+{
+  "sugar": {
+    "category": "added_sugar",
+    "aliases": ["sucrose", "cane sugar", "table sugar", "refined sugar"],
+    "relevantFor": ["diabetes", "pcos"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "Added sugar contributes to blood glucose spikes."
+  },
+  "maltodextrin": {
+    "category": "carbohydrate_related",
+    "aliases": ["maltodextrose"],
+    "relevantFor": ["diabetes", "pcos"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "High glycemic index carbohydrate (GI 85-105), higher than table sugar. Often found in 'sugar-free' products."
+  },
+  "high fructose corn syrup": {
+    "category": "added_sugar",
+    "aliases": ["hfcs", "corn syrup", "glucose-fructose syrup", "isoglucose"],
+    "relevantFor": ["diabetes", "pcos"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "High-fructose sweetener linked to insulin resistance."
+  },
+  "dextrose": {
+    "category": "added_sugar",
+    "aliases": ["glucose", "grape sugar", "corn sugar"],
+    "relevantFor": ["diabetes", "pcos"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "Simple sugar with high glycemic index."
+  },
+  "fructose": {
+    "category": "added_sugar",
+    "aliases": ["fruit sugar", "levulose"],
+    "relevantFor": ["diabetes", "pcos"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "Simple sugar; excess intake linked to insulin resistance."
+  },
+  "whey": {
+    "category": "milk_derived",
+    "allergen": "milk",
+    "aliases": ["whey protein", "whey powder", "whey concentrate", "whey isolate"],
+    "relevantFor": ["milk_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Direct milk-derived protein. Triggers milk allergy."
+  },
+  "casein": {
+    "category": "milk_derived",
+    "allergen": "milk",
+    "aliases": ["caseinate", "sodium caseinate", "calcium caseinate", "milk protein"],
+    "relevantFor": ["milk_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Primary milk protein. Triggers milk allergy."
+  },
+  "lactose": {
+    "category": "milk_derived",
+    "allergen": "milk",
+    "aliases": ["milk sugar", "lactulose"],
+    "relevantFor": ["milk_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Milk-derived sugar. Triggers milk allergy and intolerance."
+  },
+  "milk solids": {
+    "category": "milk_derived",
+    "allergen": "milk",
+    "aliases": ["skim milk powder", "dried milk", "milk powder", "non-fat dry milk", "milk solid"],
+    "relevantFor": ["milk_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Concentrated milk product. Direct milk allergen."
+  },
+  "butter": {
+    "category": "milk_derived",
+    "allergen": "milk",
+    "aliases": ["butter oil", "clarified butter", "ghee"],
+    "relevantFor": ["milk_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Milk-derived fat. Triggers milk allergy."
+  },
+  "peanut": {
+    "category": "peanut_derived",
+    "allergen": "peanut",
+    "aliases": ["peanuts", "groundnut", "groundnuts", "arachis oil", "peanut oil", "peanut flour", "peanut powder", "peanut butter", "monkey nuts"],
+    "relevantFor": ["peanut_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Direct peanut ingredient. Severe allergen risk."
+  },
+  "peanut oil": {
+    "category": "peanut_derived",
+    "allergen": "peanut",
+    "aliases": ["groundnut oil", "arachis oil"],
+    "relevantFor": ["peanut_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Peanut-derived oil. May trigger peanut allergy."
+  },
+  "soy": {
+    "category": "soy_derived",
+    "allergen": "soy",
+    "aliases": ["soya", "soybeans", "soy protein", "soy lecithin", "soya lecithin", "textured soy protein", "tsp", "tvp", "soy flour", "miso", "tofu", "tempeh", "edamame"],
+    "relevantFor": ["soy_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Soy-derived ingredient. Common allergen."
+  },
+  "wheat": {
+    "category": "wheat_derived",
+    "allergen": "wheat",
+    "aliases": ["wheat flour", "whole wheat", "wheat starch", "wheat protein", "vital wheat gluten", "semolina", "durum wheat", "spelt", "kamut", "farro", "einkorn", "emmer"],
+    "relevantFor": ["wheat_allergy", "gluten_free"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Wheat-derived ingredient. Wheat allergen and gluten source."
+  },
+  "gluten": {
+    "category": "wheat_derived",
+    "allergen": "wheat",
+    "aliases": ["vital wheat gluten", "wheat gluten"],
+    "relevantFor": ["wheat_allergy", "gluten_free"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Wheat protein complex. Triggers wheat allergy and celiac/gluten sensitivity."
+  },
+  "tree nuts": {
+    "category": "tree_nut_derived",
+    "allergen": "tree_nuts",
+    "aliases": ["almonds", "cashews", "walnuts", "pecans", "pistachios", "hazelnuts", "macadamia", "brazil nuts", "pine nuts", "chestnuts", "almond", "cashew", "walnut", "pecan", "pistachio", "hazelnut"],
+    "relevantFor": ["tree_nut_allergy"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Tree nut ingredient. Severe allergen risk."
+  },
+  "salt": {
+    "category": "sodium_source",
+    "aliases": ["sodium chloride", "iodized salt", "sea salt", "rock salt", "table salt"],
+    "relevantFor": ["hypertension", "ckd", "low_sodium"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "Primary source of dietary sodium. Relevant for hypertension and CKD."
+  },
+  "monosodium glutamate": {
+    "category": "sodium_source",
+    "aliases": ["msg", "e621", "sodium glutamate", "ajinomoto"],
+    "relevantFor": ["hypertension", "ckd", "low_sodium"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "High sodium additive. Relevant for hypertension and CKD."
+  },
+  "sodium benzoate": {
+    "category": "sodium_source",
+    "aliases": ["e211", "benzoate of soda"],
+    "relevantFor": ["hypertension", "ckd", "low_sodium"],
+    "riskLevel": "caution",
+    "confidence": "medium",
+    "description": "Sodium-containing preservative. Contributes to sodium intake."
+  },
+  "baking soda": {
+    "category": "sodium_source",
+    "aliases": ["sodium bicarbonate", "bicarbonate of soda", "e500"],
+    "relevantFor": ["hypertension", "ckd", "low_sodium"],
+    "riskLevel": "caution",
+    "confidence": "medium",
+    "description": "Sodium-containing leavening agent. Contributes to sodium intake."
+  },
+  "phosphoric acid": {
+    "category": "phosphorus_source",
+    "aliases": ["e338", "orthophosphoric acid"],
+    "relevantFor": ["ckd"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "Phosphorus-containing additive. Particularly relevant for CKD where phosphorus must be restricted."
+  },
+  "potassium chloride": {
+    "category": "potassium_source",
+    "aliases": ["e508", "potassium salt", "salt substitute"],
+    "relevantFor": ["ckd", "hypertension"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "High potassium salt substitute. CKD patients must restrict potassium."
+  },
+  "vegetable protein": {
+    "category": "ambiguous_protein",
+    "aliases": ["hydrolyzed vegetable protein", "hvp", "plant protein", "vegetable protein extract"],
+    "relevantFor": ["peanut_allergy", "soy_allergy", "wheat_allergy"],
+    "riskLevel": "verify",
+    "confidence": "low",
+    "description": "Source unspecified — may be derived from peanut, soy, or wheat. Verification required.",
+    "verificationNote": "Check manufacturer for specific protein source."
+  },
+  "natural flavors": {
+    "category": "ambiguous_flavoring",
+    "aliases": ["natural flavouring", "natural flavor", "flavoring"],
+    "relevantFor": ["peanut_allergy", "milk_allergy", "soy_allergy", "wheat_allergy"],
+    "riskLevel": "verify",
+    "confidence": "low",
+    "description": "Source not declared. May contain allergen-derived compounds.",
+    "verificationNote": "Contact manufacturer for allergen information in natural flavors."
+  },
+  "artificial flavors": {
+    "category": "additive",
+    "aliases": ["artificial flavouring", "artificial flavor"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "medium",
+    "description": "Synthetic flavoring. Source typically not allergen-derived."
+  },
+  "soy lecithin": {
+    "category": "soy_derived",
+    "allergen": "soy",
+    "aliases": ["lecithin", "sunflower lecithin", "e322"],
+    "relevantFor": ["soy_allergy"],
+    "riskLevel": "verify",
+    "confidence": "medium",
+    "description": "May be soy-derived. Most soy lecithin contains minimal protein, but highly sensitive individuals should verify."
+  },
+  "modified starch": {
+    "category": "carbohydrate_related",
+    "aliases": ["modified food starch", "modified corn starch", "modified tapioca starch", "modified potato starch"],
+    "relevantFor": ["diabetes", "pcos"],
+    "riskLevel": "caution",
+    "confidence": "medium",
+    "description": "Processed starch with variable glycemic impact. Relevant for blood sugar management."
+  },
+  "glucose syrup": {
+    "category": "added_sugar",
+    "aliases": ["corn syrup", "glucose-fructose syrup", "confectioner's glucose"],
+    "relevantFor": ["diabetes", "pcos"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "High glycemic sweetener."
+  },
+  "palm oil": {
+    "category": "saturated_fat",
+    "aliases": ["palm kernel oil", "hydrogenated palm oil", "partially hydrogenated palm oil"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Saturated fat. No specific condition risk detected from available rules."
+  },
+  "vegetable oil": {
+    "category": "fat",
+    "aliases": ["refined vegetable oil", "edible vegetable oil"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "medium",
+    "description": "General fat. No specific condition risk from available rules."
+  },
+  "refined flour": {
+    "category": "refined_carbohydrate",
+    "aliases": ["maida", "all-purpose flour", "plain flour", "white flour"],
+    "relevantFor": ["diabetes", "pcos", "gluten_free"],
+    "riskLevel": "caution",
+    "confidence": "high",
+    "description": "Refined carbohydrate with high glycemic index. Relevant for blood sugar conditions."
+  },
+  "whole wheat flour": {
+    "category": "wheat_derived",
+    "allergen": "wheat",
+    "aliases": ["wholemeal flour", "whole grain flour"],
+    "relevantFor": ["wheat_allergy", "gluten_free"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Wheat flour. Gluten source and wheat allergen."
+  },
+  "aspartame": {
+    "category": "artificial_sweetener",
+    "aliases": ["e951", "nutrasweet", "equal"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "medium",
+    "description": "Artificial sweetener. Does not raise blood glucose. No specific condition conflict detected."
+  },
+  "stevia": {
+    "category": "natural_sweetener",
+    "aliases": ["steviol glycosides", "rebaudioside a", "e960"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Natural zero-calorie sweetener. No blood glucose impact."
+  },
+  "preservatives": {
+    "category": "additive",
+    "aliases": ["sodium nitrate", "sodium nitrite", "e250", "e251", "bha", "bht", "e320", "e321"],
+    "relevantFor": ["hypertension", "ckd"],
+    "riskLevel": "verify",
+    "confidence": "low",
+    "description": "Some preservatives contain sodium or phosphorus compounds. Specific compound not identified."
+  },
+  "carrageenan": {
+    "category": "additive",
+    "aliases": ["e407", "irish moss"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "medium",
+    "description": "Seaweed-derived thickener. No specific condition risk detected."
+  },
+  "xanthan gum": {
+    "category": "additive",
+    "aliases": ["e415"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Fermentation-derived thickener. Generally safe. No condition-specific conflict."
+  },
+  "inulin": {
+    "category": "dietary_fiber",
+    "aliases": ["chicory root", "chicory root fiber", "oligofructose", "fos"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Prebiotic fiber. No specific condition conflict detected."
+  },
+  "milk chocolate": {
+    "category": "milk_derived",
+    "allergen": "milk",
+    "aliases": ["chocolate milk", "dairy milk chocolate"],
+    "relevantFor": ["milk_allergy", "diabetes", "pcos"],
+    "riskLevel": "high",
+    "confidence": "high",
+    "description": "Contains milk solids and added sugar. High risk for milk allergy; caution for diabetes."
+  },
+  "cocoa butter": {
+    "category": "fat",
+    "aliases": ["theobroma oil"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Plant-derived fat from cacao. No allergen or condition-specific risk detected."
+  },
+  "acesulfame potassium": {
+    "category": "artificial_sweetener",
+    "aliases": ["acesulfame k", "ace-k", "e950", "sunett", "sweet one"],
+    "relevantFor": ["ckd"],
+    "riskLevel": "verify",
+    "confidence": "medium",
+    "description": "Potassium-containing artificial sweetener. CKD patients may need to consider potassium load."
+  },
+  "added flavors": {
+    "category": "ambiguous_flavoring",
+    "aliases": ["added flavour", "flavor", "flavour"],
+    "relevantFor": ["peanut_allergy", "milk_allergy", "soy_allergy"],
+    "riskLevel": "verify",
+    "confidence": "low",
+    "description": "Source not declared. May contain allergen-derived compounds."
+  },
+  "citric acid": {
+    "category": "acidulant",
+    "aliases": ["e330", "lemon acid"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Common food acid. No condition-specific conflict detected."
+  },
+  "calcium carbonate": {
+    "category": "mineral",
+    "aliases": ["e170", "chalk", "limestone"],
+    "relevantFor": ["ckd"],
+    "riskLevel": "lower_concern",
+    "confidence": "medium",
+    "description": "Calcium supplement/anti-caking agent. Generally safe at food levels."
+  },
+  "annatto": {
+    "category": "natural_colorant",
+    "aliases": ["e160b", "bixin", "norbixin"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Natural food color. No condition-specific risk."
+  },
+  "turmeric": {
+    "category": "spice",
+    "aliases": ["curcumin", "e100", "haldi"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Spice/natural colorant. No condition-specific risk detected."
+  },
+  "sunflower oil": {
+    "category": "fat",
+    "aliases": ["refined sunflower oil"],
+    "relevantFor": [],
+    "riskLevel": "lower_concern",
+    "confidence": "high",
+    "description": "Plant-derived oil. No condition-specific risk."
+  },
+  "rice flour": {
+    "category": "carbohydrate_related",
+    "aliases": ["ground rice", "rice starch"],
+    "relevantFor": ["diabetes", "pcos"],
+    "riskLevel": "caution",
+    "confidence": "medium",
+    "description": "High glycemic carbohydrate. Relevant for blood sugar management."
+  }
+}

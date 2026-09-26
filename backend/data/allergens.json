@@ -1,0 +1,32 @@
+{
+  "peanut": {
+    "name": "Peanut",
+    "aliases": ["peanuts", "groundnut", "groundnuts", "arachis", "monkey nuts", "peanut oil", "peanut flour", "peanut powder", "peanut butter"],
+    "severity": "high",
+    "profileKey": "peanut_allergy"
+  },
+  "milk": {
+    "name": "Milk / Dairy",
+    "aliases": ["milk", "dairy", "whey", "casein", "caseinate", "lactose", "milk solids", "milk powder", "butter", "ghee", "cream", "cheese", "yogurt", "lactalbumin", "lactoglobulin"],
+    "severity": "high",
+    "profileKey": "milk_allergy"
+  },
+  "soy": {
+    "name": "Soy",
+    "aliases": ["soy", "soya", "soybean", "soybeans", "soy protein", "soy lecithin", "soya lecithin", "tofu", "tempeh", "miso", "edamame", "textured soy protein"],
+    "severity": "high",
+    "profileKey": "soy_allergy"
+  },
+  "wheat": {
+    "name": "Wheat",
+    "aliases": ["wheat", "wheat flour", "whole wheat", "wheat starch", "wheat protein", "gluten", "vital wheat gluten", "semolina", "durum", "spelt", "kamut", "farro", "maida", "atta"],
+    "severity": "high",
+    "profileKey": "wheat_allergy"
+  },
+  "tree_nuts": {
+    "name": "Tree Nuts",
+    "aliases": ["almond", "almonds", "cashew", "cashews", "walnut", "walnuts", "pecan", "pecans", "pistachio", "pistachios", "hazelnut", "hazelnuts", "macadamia", "brazil nut", "pine nut", "chestnut"],
+    "severity": "high",
+    "profileKey": "tree_nut_allergy"
+  }
+}

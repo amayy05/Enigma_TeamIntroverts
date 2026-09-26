@@ -1,0 +1,47 @@
+{
+  "diabetes": {
+    "name": "Diabetes",
+    "profileKey": "diabetes",
+    "relevantNutrients": ["added_sugar", "total_sugar", "carbohydrates"],
+    "relevantIngredientCategories": ["added_sugar", "carbohydrate_related", "refined_carbohydrate"],
+    "nutritionThresholds": {
+      "added_sugar": { "caution": 5, "unit": "g", "per": "serving", "message": "Added sugar content is relevant for diabetes management." },
+      "total_sugar": { "caution": 10, "unit": "g", "per": "serving", "message": "Total sugar content is relevant for blood glucose management." },
+      "carbohydrates": { "caution": 30, "unit": "g", "per": "serving", "message": "High carbohydrate content may impact blood glucose levels." }
+    },
+    "description": "Focuses on blood sugar impact — added sugars, refined carbohydrates, and high-GI ingredients."
+  },
+  "ckd": {
+    "name": "Chronic Kidney Disease (CKD)",
+    "profileKey": "ckd",
+    "relevantNutrients": ["sodium", "potassium", "phosphorus"],
+    "relevantIngredientCategories": ["sodium_source", "potassium_source", "phosphorus_source"],
+    "nutritionThresholds": {
+      "sodium": { "caution": 200, "unit": "mg", "per": "serving", "message": "Sodium intake requires careful monitoring in CKD." },
+      "potassium": { "caution": 200, "unit": "mg", "per": "serving", "message": "Potassium restriction is important in CKD to prevent hyperkalemia." },
+      "phosphorus": { "caution": 150, "unit": "mg", "per": "serving", "message": "Phosphorus restriction is critical in CKD to protect kidney function." }
+    },
+    "description": "Focuses on sodium, potassium, and phosphorus — all restricted in kidney disease."
+  },
+  "hypertension": {
+    "name": "Hypertension",
+    "profileKey": "hypertension",
+    "relevantNutrients": ["sodium"],
+    "relevantIngredientCategories": ["sodium_source"],
+    "nutritionThresholds": {
+      "sodium": { "caution": 200, "unit": "mg", "per": "serving", "message": "High sodium intake is directly associated with elevated blood pressure." }
+    },
+    "description": "Focuses on sodium content — the primary dietary concern for blood pressure management."
+  },
+  "pcos": {
+    "name": "PCOS",
+    "profileKey": "pcos",
+    "relevantNutrients": ["added_sugar", "total_sugar", "carbohydrates"],
+    "relevantIngredientCategories": ["added_sugar", "carbohydrate_related", "refined_carbohydrate"],
+    "nutritionThresholds": {
+      "added_sugar": { "caution": 5, "unit": "g", "per": "serving", "message": "Added sugar may worsen insulin resistance associated with PCOS." },
+      "total_sugar": { "caution": 10, "unit": "g", "per": "serving", "message": "High sugar intake may impact hormonal balance in PCOS." }
+    },
+    "description": "Focuses on insulin resistance triggers — added sugars and refined carbohydrates."
+  }
+}

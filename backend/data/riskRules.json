@@ -1,0 +1,164 @@
+{
+  "allergenRules": [
+    {
+      "id": "rule_allergen_direct",
+      "condition": "allergy_detected",
+      "profileFactor": "allergen",
+      "status": "HIGH_RISK",
+      "confidence": "high",
+      "description": "Direct allergen detected in ingredient list."
+    },
+    {
+      "id": "rule_allergen_ambiguous",
+      "condition": "allergen_source_ambiguous",
+      "profileFactor": "allergen",
+      "status": "VERIFY",
+      "confidence": "low",
+      "description": "Ingredient source is unspecified. Allergen presence cannot be confirmed or excluded."
+    }
+  ],
+  "conditionRules": [
+    {
+      "id": "rule_diabetes_sugar",
+      "condition": "diabetes",
+      "nutrient": "added_sugar",
+      "threshold": 5,
+      "unit": "g",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Added sugar content is relevant for blood glucose management in diabetes."
+    },
+    {
+      "id": "rule_diabetes_total_sugar",
+      "condition": "diabetes",
+      "nutrient": "total_sugar",
+      "threshold": 10,
+      "unit": "g",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Total sugar content may impact blood glucose levels."
+    },
+    {
+      "id": "rule_diabetes_carbs",
+      "condition": "diabetes",
+      "nutrient": "carbohydrates",
+      "threshold": 30,
+      "unit": "g",
+      "status": "CAUTION",
+      "confidence": "medium",
+      "message": "High carbohydrate content may impact postprandial blood glucose."
+    },
+    {
+      "id": "rule_diabetes_maltodextrin",
+      "condition": "diabetes",
+      "ingredientCategory": "carbohydrate_related",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Carbohydrate-derived ingredient detected. Despite 'sugar-free' marketing, high glycemic index ingredients may spike blood glucose."
+    },
+    {
+      "id": "rule_hypertension_sodium",
+      "condition": "hypertension",
+      "nutrient": "sodium",
+      "threshold": 200,
+      "unit": "mg",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Sodium content is directly linked to blood pressure elevation."
+    },
+    {
+      "id": "rule_ckd_sodium",
+      "condition": "ckd",
+      "nutrient": "sodium",
+      "threshold": 200,
+      "unit": "mg",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Sodium restriction is critical in CKD to prevent fluid retention and further kidney damage."
+    },
+    {
+      "id": "rule_ckd_potassium",
+      "condition": "ckd",
+      "nutrient": "potassium",
+      "threshold": 200,
+      "unit": "mg",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Potassium elevation (hyperkalemia) is a serious risk in CKD requiring dietary restriction."
+    },
+    {
+      "id": "rule_ckd_phosphorus",
+      "condition": "ckd",
+      "nutrient": "phosphorus",
+      "threshold": 150,
+      "unit": "mg",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Phosphorus restriction is essential in CKD to prevent bone disease and vascular damage."
+    },
+    {
+      "id": "rule_pcos_sugar",
+      "condition": "pcos",
+      "nutrient": "added_sugar",
+      "threshold": 5,
+      "unit": "g",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Added sugar worsens insulin resistance, which is central to PCOS management."
+    },
+    {
+      "id": "rule_pcos_carbs",
+      "condition": "pcos",
+      "ingredientCategory": "carbohydrate_related",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Refined carbohydrate ingredient detected. Relevant for insulin sensitivity in PCOS."
+    }
+  ],
+  "dietaryRules": [
+    {
+      "id": "rule_vegetarian_meat",
+      "restriction": "vegetarian",
+      "ingredientCategory": "meat_derived",
+      "status": "HIGH_RISK",
+      "confidence": "high",
+      "message": "Non-vegetarian ingredient detected."
+    },
+    {
+      "id": "rule_vegan_animal",
+      "restriction": "vegan",
+      "ingredientCategory": ["meat_derived", "milk_derived", "egg_derived"],
+      "status": "HIGH_RISK",
+      "confidence": "high",
+      "message": "Animal-derived ingredient detected. Not suitable for vegan diet."
+    },
+    {
+      "id": "rule_gluten_free",
+      "restriction": "gluten_free",
+      "ingredientCategory": "wheat_derived",
+      "status": "HIGH_RISK",
+      "confidence": "high",
+      "message": "Wheat/gluten-containing ingredient detected. Not suitable for gluten-free diet."
+    },
+    {
+      "id": "rule_low_sodium",
+      "restriction": "low_sodium",
+      "nutrient": "sodium",
+      "threshold": 140,
+      "unit": "mg",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Sodium content exceeds low-sodium threshold."
+    },
+    {
+      "id": "rule_low_sugar",
+      "restriction": "low_sugar",
+      "nutrient": "added_sugar",
+      "threshold": 5,
+      "unit": "g",
+      "status": "CAUTION",
+      "confidence": "high",
+      "message": "Added sugar content exceeds low-sugar preference threshold."
+    }
+  ]
+}
