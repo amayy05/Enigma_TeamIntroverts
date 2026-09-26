@@ -10,7 +10,6 @@ NutriShield is a medical and dietary risk engine that evaluates food ingredients
 
 **Team Name:** Team Introverts
 **Members:** 
-- Amay
 - Girish Nikose
 - Ananya Shetty
 
