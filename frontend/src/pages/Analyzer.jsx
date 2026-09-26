@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 import { RiskBadge } from '../components/RiskBadge';
+import BarcodeScanner from '../components/BarcodeScanner';
 
 const NUTRITION_FIELDS = [
   { key: 'calories', label: 'Calories', unit: 'kcal' },
@@ -9,6 +10,8 @@ const NUTRITION_FIELDS = [
   { key: 'added_sugar', label: 'Added Sugar', unit: 'g' },
   { key: 'total_sugar', label: 'Total Sugar', unit: 'g' },
   { key: 'sodium', label: 'Sodium', unit: 'mg' },
+  { key: 'potassium', label: 'Potassium', unit: 'mg' },
+  { key: 'phosphorus', label: 'Phosphorus', unit: 'mg' },
   { key: 'protein', label: 'Protein', unit: 'g' },
   { key: 'fat', label: 'Total Fat', unit: 'g' },
 ];
@@ -21,6 +24,9 @@ export default function Analyzer({ profile, demoFoods, initialFoodId, onResult }
   const [nutrition, setNutrition] = useState({});
   const [loading, setLoading] = useState(false);
   const [extracting, setExtracting] = useState(false);
+  const [barcode, setBarcode] = useState('');
+  const [lookingUp, setLookingUp] = useState(false);
+  const [scanning, setScanning] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -48,7 +54,7 @@ export default function Analyzer({ profile, demoFoods, initialFoodId, onResult }
   }
 
   async function handleAnalyze() {
-    if (!ingredients.trim()) { setError('Please enter ingredient information.'); return; }
+    if (!ingredients.trim() && !foodName.trim()) { setError('Please enter a Food Name or ingredients.'); return; }
     setLoading(true);
     setError(null);
     try {
@@ -79,6 +85,22 @@ export default function Analyzer({ profile, demoFoods, initialFoodId, onResult }
     setExtracting(false);
     // Reset file input
     e.target.value = null;
+  }
+
+  async function handleBarcodeLookup() {
+    if (!barcode.trim()) return;
+    setLookingUp(true);
+    setError(null);
+    try {
+      const data = await api.lookupBarcode(barcode);
+      setFoodName(data.name || '');
+      setIngredients(data.ingredients || '');
+      setNutrition(data.nutrition || {});
+      setShowNutrition(true);
+    } catch (e) {
+      setError(e.message || 'Failed to find product by barcode.');
+    }
+    setLookingUp(false);
   }
 
   return (
@@ -112,10 +134,39 @@ export default function Analyzer({ profile, demoFoods, initialFoodId, onResult }
             <p className="font-sans text-on-surface-variant">Upload it and our AI will extract the ingredients and nutrition facts automatically.</p>
           </div>
           <label className="shrink-0 flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-outline-variant text-primary font-bold hover:bg-primary hover:text-white transition-colors cursor-pointer shadow-sm">
-            <span className="material-symbols-outlined">{extracting ? 'refresh' : 'add_a_photo'}</span>
+            <span translate="no" className="material-symbols-outlined notranslate">{extracting ? 'refresh' : 'add_a_photo'}</span>
             <span>{extracting ? 'Extracting...' : 'Upload Image'}</span>
             <input type="file" accept="image/*" onChange={handleImageUpload} disabled={extracting} className="hidden" />
           </label>
+        </div>
+
+        <div className="relative z-10 bg-surface-container-high rounded-2xl p-6 border border-outline-variant">
+          <h3 className="font-display text-xl text-on-surface mb-1">Have a Barcode?</h3>
+          <p className="font-sans text-sm text-on-surface-variant mb-4">Lookup the product in the global Open Food Facts database.</p>
+          <div className="flex gap-2 max-w-md">
+            <input
+              type="text"
+              value={barcode}
+              onChange={e => setBarcode(e.target.value)}
+              placeholder="Enter barcode number..."
+              className="flex-1 bg-white border border-outline-variant rounded-xl px-4 py-3 font-sans text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50"
+            />
+            <button
+              onClick={handleBarcodeLookup}
+              disabled={lookingUp || !barcode.trim()}
+              className="px-6 py-3 rounded-xl bg-primary text-white font-bold hover:scale-[1.02] transition-transform disabled:opacity-50 shrink-0"
+            >
+              {lookingUp ? 'Searching...' : 'Search'}
+            </button>
+            <button
+              onClick={() => setScanning(true)}
+              className="px-4 py-3 rounded-xl bg-primary-container text-on-primary-container font-bold hover:brightness-105 transition-colors flex items-center gap-2 shrink-0 border border-primary/20"
+              title="Scan Barcode with Camera"
+            >
+              <span translate="no" className="material-symbols-outlined notranslate">barcode_scanner</span>
+              <span>Scan with Camera</span>
+            </button>
+          </div>
         </div>
 
         <div className="relative z-10">
@@ -166,12 +217,35 @@ export default function Analyzer({ profile, demoFoods, initialFoodId, onResult }
 
         <button
           onClick={handleAnalyze}
-          disabled={loading || !ingredients.trim()}
+          disabled={loading || (!ingredients.trim() && !foodName.trim())}
           className="relative z-10 w-full py-4 rounded-full bg-primary text-white font-bold text-lg hover:scale-[1.02] transition-transform shadow-float disabled:opacity-50"
         >
-          {loading ? 'Checking with our database...' : 'Reveal Insights'}
+          {loading ? (ingredients.trim() ? 'Checking with our database...' : 'Inferring ingredients...') : 'Reveal Insights'}
         </button>
       </div>
+
+      {scanning && (
+        <BarcodeScanner 
+          onClose={() => setScanning(false)} 
+          onScan={(text) => { 
+            setBarcode(text); 
+            setScanning(false); 
+            // We can't directly call handleBarcodeLookup here because it uses state 'barcode', 
+            // so we do it inline with the new text.
+            setLookingUp(true);
+            api.lookupBarcode(text).then(data => {
+              setFoodName(data.name || '');
+              setIngredients(data.ingredients || '');
+              setNutrition(data.nutrition || {});
+              setShowNutrition(true);
+              setLookingUp(false);
+            }).catch(e => {
+              setError(e.message || 'Failed to find product by barcode.');
+              setLookingUp(false);
+            });
+          }} 
+        />
+      )}
 
     </main>
   );

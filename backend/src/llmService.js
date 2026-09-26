@@ -333,4 +333,71 @@ Return ONLY a valid JSON object matching this schema exactly, and nothing else. 
   });
 }
 
-module.exports = { generateExplanation, answerChatQuestion, extractLabelFromImage };
+async function generateComparison(resultA, resultB, nameA, nameB, userProfile) {
+  const conditions = (userProfile?.conditions || []).join(', ') || 'none';
+  const allergies = (userProfile?.allergies || []).join(', ') || 'none';
+
+  const formatFindings = (res) => [
+    ...res.allergenFindings.map(f => `ALLERGEN: ${f.matchedIngredient} (${f.allergenName}) - HIGH_RISK`),
+    ...res.ingredientFindings.map(f => `INGREDIENT: ${f.ingredient} (${f.status}) - ${f.reason}`),
+    ...res.nutritionFindings.map(f => `NUTRITION: ${f.nutrient} (${f.status}) - ${f.reason}`)
+  ].join('\n') || 'No specific concerns.';
+
+  const prompt = `System: You are NutriShield AI. Compare these two foods based strictly on the structured findings for this user's profile.
+RULES:
+1. Identify which product has fewer identified relevant concerns for the user.
+2. Use careful wording: "fewer identified concerns", "based on your profile". Do NOT say "healthier", "safe", or "medically recommended".
+3. Use the exact risk states: HIGH_RISK, CAUTION, VERIFY, LOWER_CONCERN. Do not use "SAFE".
+4. Explain WHY the concerns occurred using the provided reasons.
+5. Add a "Why this differs" section explaining the differences.
+6. Preserve uncertainty (e.g., if VERIFY is present).
+7. Include a limitations statement ("based on the information available", "consider verifying").
+
+USER PROFILE: Conditions: ${conditions} | Allergies: ${allergies}
+
+PRODUCT A: ${nameA}
+OVERALL STATUS: ${resultA.overallStatus}
+FINDINGS:
+${formatFindings(resultA)}
+
+PRODUCT B: ${nameB}
+OVERALL STATUS: ${resultB.overallStatus}
+FINDINGS:
+${formatFindings(resultB)}
+
+Provide a personalized comparison summary answering: "Based on this user's profile, which product has fewer identified relevant concerns, and why?"`;
+
+  const result = await callOllama(prompt);
+  return result.text || 'Comparison generated offline.';
+}
+
+async function answerComparisonChat(question, resultA, resultB, nameA, nameB, userProfile) {
+  const prompt = `System: You are NutriShield AI. Answer the user's question about the comparison of two foods based ONLY on the structured findings below.
+RULES:
+- Do NOT invent information or reclassify risk.
+- Do NOT claim guaranteed safety.
+- Explain the structured comparison results.
+
+PRODUCT A (${nameA}) STATUS: ${resultA.overallStatus}
+PRODUCT B (${nameB}) STATUS: ${resultB.overallStatus}
+
+USER QUESTION: "${question}"
+Answer:`;
+  const result = await callOllama(prompt);
+  return result.text || 'Cannot answer right now.';
+}
+async function inferIngredients(foodName) {
+  const prompt = `System: You are a culinary database API. The user will provide the name of a generic unlabelled food or street food dish (e.g., "Samosa", "Chole Bhature", "Cheeseburger").
+Your task is to infer the most common, standard ingredients for this dish. 
+If it is a generic dish, list all the likely ingredients (including typical oils, spices, flours, dairy, etc).
+Return ONLY a comma-separated list of ingredients. Do NOT return any markdown, introductory text, or formatting. Just the ingredients.
+
+Food: "${foodName}"
+Ingredients:`;
+  const result = await callOllama(prompt);
+  let text = result.text || '';
+  text = text.replace(/```(json)?/gi, '').replace(/Ingredients?:/i, '').trim();
+  return text;
+}
+
+module.exports = { generateExplanation, answerChatQuestion, extractLabelFromImage, generateComparison, answerComparisonChat, inferIngredients };

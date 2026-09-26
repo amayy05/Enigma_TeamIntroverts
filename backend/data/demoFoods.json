@@ -1,146 +1,110 @@
 [
   {
-    "id": "sugar-free-biscuit",
-    "name": "Sugar-Free Biscuit",
-    "description": "A 'sugar-free' packaged biscuit containing hidden carbohydrate additives.",
-    "ingredients": "Wheat flour, maltodextrin, vegetable oil, milk solids, salt, leavening agents (sodium bicarbonate, ammonium bicarbonate), artificial flavors",
+    "id": "quinoa-bowl",
+    "name": "Organic Quinoa Bowl",
+    "description": "A wholesome bowl with organic quinoa, roasted vegetables, and a light olive oil dressing.",
+    "ingredients": "Organic quinoa, water, olive oil, lemon juice, cherry tomatoes, cucumbers, sea salt, black pepper",
     "nutrition": {
-      "calories": 120,
-      "carbohydrates": 22,
+      "calories": 240,
+      "carbohydrates": 38,
       "added_sugar": 0,
-      "total_sugar": 0,
-      "sodium": 180,
-      "potassium": 45,
-      "phosphorus": 60,
-      "protein": 2,
-      "fat": 4
-    },
-    "notes": "Classic VERIFY/CAUTION demo — marketed as sugar-free but contains maltodextrin (high GI carbohydrate)."
-  },
-  {
-    "id": "instant-noodles",
-    "name": "Instant Noodles",
-    "description": "Packaged instant noodles with high sodium seasoning.",
-    "ingredients": "Wheat flour, palm oil, salt, monosodium glutamate (MSG), soy sauce powder, spices, sodium benzoate (preservative), artificial flavors, caramel color",
-    "nutrition": {
-      "calories": 380,
-      "carbohydrates": 52,
-      "added_sugar": 2,
-      "total_sugar": 3,
-      "sodium": 1820,
-      "potassium": 120,
+      "total_sugar": 2,
+      "sodium": 110,
+      "potassium": 320,
       "phosphorus": 180,
       "protein": 8,
-      "fat": 14
+      "fat": 6
     },
-    "notes": "HIGH RISK for hypertension/CKD due to extreme sodium. Also wheat allergen."
+    "notes": "LOWER CONCERN. Clean ingredients, no major allergens, heart-healthy."
   },
   {
-    "id": "spice-mix",
-    "name": "Spice Mix",
-    "description": "A packaged spice blend with unspecified vegetable protein source.",
-    "ingredients": "Coriander, cumin, turmeric, red chili, salt, vegetable protein, natural flavors, silicon dioxide (anti-caking agent)",
-    "nutrition": {
-      "calories": 25,
-      "carbohydrates": 3,
-      "added_sugar": 0,
-      "total_sugar": 1,
-      "sodium": 320,
-      "potassium": 80,
-      "phosphorus": 30,
-      "protein": 1,
-      "fat": 1
-    },
-    "notes": "VERIFY demo — contains 'vegetable protein' with unspecified source (could be peanut/soy/wheat)."
-  },
-  {
-    "id": "milk-chocolate",
-    "name": "Milk Chocolate",
-    "description": "Standard milk chocolate bar with cocoa, milk solids, and sugar.",
-    "ingredients": "Sugar, cocoa butter, milk solids, cocoa mass, whey powder, soy lecithin, vanilla extract, salt",
-    "nutrition": {
-      "calories": 235,
-      "carbohydrates": 28,
-      "added_sugar": 26,
-      "total_sugar": 26,
-      "sodium": 55,
-      "potassium": 190,
-      "phosphorus": 120,
-      "protein": 4,
-      "fat": 13
-    },
-    "notes": "HIGH RISK for milk allergy. CAUTION for diabetes/PCOS due to high added sugar."
-  },
-  {
-    "id": "packaged-juice",
-    "name": "Packaged Juice",
-    "description": "Commercially packaged fruit juice with added sugar.",
-    "ingredients": "Reconstituted fruit juice (60%), water, sugar, citric acid, ascorbic acid (vitamin C), sodium benzoate (preservative), artificial flavors, beta-carotene (color)",
-    "nutrition": {
-      "calories": 110,
-      "carbohydrates": 26,
-      "added_sugar": 18,
-      "total_sugar": 24,
-      "sodium": 35,
-      "potassium": 150,
-      "phosphorus": 20,
-      "protein": 0,
-      "fat": 0
-    },
-    "notes": "CAUTION for diabetes/PCOS — high added sugar despite 'juice' label."
-  },
-  {
-    "id": "protein-bar",
-    "name": "Protein Bar",
-    "description": "Packaged protein bar with whey protein and added sweeteners.",
-    "ingredients": "Whey protein concentrate, glucose syrup, palm kernel oil, milk chocolate coating (sugar, cocoa butter, whole milk powder, cocoa mass, soy lecithin), peanut flour, almonds, salt, soy protein isolate, natural flavors",
-    "nutrition": {
-      "calories": 280,
-      "carbohydrates": 32,
-      "added_sugar": 14,
-      "total_sugar": 16,
-      "sodium": 210,
-      "potassium": 220,
-      "phosphorus": 180,
-      "protein": 20,
-      "fat": 9
-    },
-    "notes": "HIGH RISK for peanut/milk/soy/tree nut allergies. CAUTION for diabetes."
-  },
-  {
-    "id": "breakfast-cereal",
-    "name": "Breakfast Cereal",
-    "description": "Fortified breakfast cereal with whole grains and added sugar.",
-    "ingredients": "Whole wheat flour, sugar, rice flour, maltodextrin, salt, niacinamide, reduced iron, zinc oxide, pyridoxine hydrochloride, riboflavin, thiamine mononitrate, folic acid, BHT (preservative)",
+    "id": "berry-smoothie",
+    "name": "Fresh Berry Smoothie",
+    "description": "A fresh blend of mixed berries and unsweetened almond milk with chia seeds.",
+    "ingredients": "Strawberries, blueberries, unsweetened almond milk (filtered water, almonds), chia seeds",
     "nutrition": {
       "calories": 160,
-      "carbohydrates": 35,
-      "added_sugar": 12,
-      "total_sugar": 13,
-      "sodium": 220,
-      "potassium": 85,
-      "phosphorus": 90,
-      "protein": 3,
-      "fat": 1
+      "carbohydrates": 22,
+      "added_sugar": 0,
+      "total_sugar": 12,
+      "sodium": 140,
+      "potassium": 450,
+      "phosphorus": 200,
+      "protein": 5,
+      "fat": 7
     },
-    "notes": "CAUTION for diabetes — high added sugar + maltodextrin. Wheat allergen."
+    "notes": "LOWER CONCERN. Good for heart health, diabetes-friendly."
   },
   {
-    "id": "salad-dressing",
-    "name": "Salad Dressing",
-    "description": "Commercial salad dressing with hidden sodium and unspecified natural flavors.",
-    "ingredients": "Soybean oil, water, vinegar, salt, sugar, garlic powder, onion powder, natural flavors, xanthan gum, calcium disodium EDTA, sodium benzoate",
+    "id": "grilled-salmon",
+    "name": "Grilled Salmon & Asparagus",
+    "description": "Wild-caught salmon fillet grilled with fresh asparagus spears and lemon.",
+    "ingredients": "Wild-caught salmon, asparagus, olive oil, lemon juice, sea salt, garlic, black pepper",
     "nutrition": {
-      "calories": 90,
-      "carbohydrates": 4,
-      "added_sugar": 2,
+      "calories": 320,
+      "carbohydrates": 8,
+      "added_sugar": 0,
       "total_sugar": 2,
-      "sodium": 380,
-      "potassium": 15,
-      "phosphorus": 10,
-      "protein": 0,
-      "fat": 9
+      "sodium": 150,
+      "potassium": 680,
+      "phosphorus": 310,
+      "protein": 34,
+      "fat": 16
     },
-    "notes": "CAUTION for hypertension (high sodium). VERIFY for allergen-sensitive users (natural flavors unspecified)."
+    "notes": "LOWER CONCERN. Excellent source of omega-3s and lean protein."
+  },
+  {
+    "id": "avocado-toast",
+    "name": "Avocado Sourdough Toast",
+    "description": "Mashed avocado on artisanal sourdough bread topped with microgreens.",
+    "ingredients": "Sourdough bread (wheat flour, water, salt, natural starter), avocado, microgreens, lime juice, sea salt, red pepper flakes",
+    "nutrition": {
+      "calories": 280,
+      "carbohydrates": 28,
+      "added_sugar": 0,
+      "total_sugar": 1,
+      "sodium": 210,
+      "potassium": 540,
+      "phosphorus": 120,
+      "protein": 7,
+      "fat": 15
+    },
+    "notes": "LOWER CONCERN. Contains wheat, but otherwise heart-healthy and low in sugar."
+  },
+  {
+    "id": "chickpea-salad",
+    "name": "Mediterranean Chickpea Salad",
+    "description": "A refreshing salad of chickpeas, cucumbers, feta cheese, and herbs.",
+    "ingredients": "Chickpeas, cucumbers, red onions, feta cheese (pasteurized milk, salt, cultures, enzymes), olive oil, red wine vinegar, oregano, black pepper",
+    "nutrition": {
+      "calories": 210,
+      "carbohydrates": 24,
+      "added_sugar": 0,
+      "total_sugar": 4,
+      "sodium": 280,
+      "potassium": 310,
+      "phosphorus": 150,
+      "protein": 9,
+      "fat": 10
+    },
+    "notes": "LOWER CONCERN. Great source of plant-based fiber and protein. Contains dairy (feta)."
+  },
+  {
+    "id": "sweet-potato",
+    "name": "Baked Sweet Potato Wedges",
+    "description": "Oven-baked sweet potato wedges dusted with cinnamon and paprika.",
+    "ingredients": "Sweet potatoes, olive oil, cinnamon, smoked paprika, sea salt",
+    "nutrition": {
+      "calories": 180,
+      "carbohydrates": 36,
+      "added_sugar": 0,
+      "total_sugar": 10,
+      "sodium": 120,
+      "potassium": 480,
+      "phosphorus": 70,
+      "protein": 3,
+      "fat": 3
+    },
+    "notes": "LOWER CONCERN. High in vitamin A and complex carbohydrates. No added sugar."
   }
 ]

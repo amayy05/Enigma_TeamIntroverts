@@ -72,7 +72,7 @@ export default function Profile({ profile, onSave }) {
                 }`}
               >
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center ${active ? 'bg-primary text-white' : 'bg-surface text-on-surface-variant'}`}>
-                  <span className="material-symbols-outlined">{icon}</span>
+                  <span translate="no" className="material-symbols-outlined notranslate">{icon}</span>
                 </div>
                 <div>
                   <div className={`font-bold font-sans ${active ? 'text-primary' : 'text-on-surface'}`}>{label}</div>

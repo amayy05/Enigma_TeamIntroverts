@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 const navItems = [
   { to: '/', label: 'Home', icon: 'home' },
   { to: '/analyze', label: 'Analyze Food', icon: 'search' },
+  { to: '/compare', label: 'Compare Foods', icon: 'compare_arrows' },
   { to: '/profile', label: 'My Health', icon: 'favorite' },
 ];
 
@@ -17,10 +18,10 @@ export default function Sidebar({ profile }) {
           {/* Brand */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center text-primary">
-              <span className="material-symbols-outlined text-[36px]" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
+              <span translate="no" className="material-symbols-outlined notranslate text-[36px]" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
             </div>
             <div>
-              <div className="font-display text-2xl font-bold text-on-surface tracking-tight">NutriShield</div>
+              <div translate="no" className="font-display text-2xl font-bold text-on-surface tracking-tight notranslate">NutriShield</div>
             </div>
           </div>
 
@@ -41,7 +42,7 @@ export default function Sidebar({ profile }) {
               >
                 {({ isActive }) => (
                   <>
-                    <span className="material-symbols-outlined text-[22px]" style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}>{icon}</span>
+                    <span translate="no" className="material-symbols-outlined notranslate text-[22px]" style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}>{icon}</span>
                     <span className="text-[15px]">{label}</span>
                   </>
                 )}
@@ -56,7 +57,7 @@ export default function Sidebar({ profile }) {
             onClick={() => navigate('/analyze')}
             className="w-full py-3.5 px-4 rounded-full bg-primary-container hover:brightness-110 text-on-primary-container font-sans font-bold text-[15px] flex items-center justify-center gap-2 shadow-soft transition-all active:scale-95"
           >
-            <span className="material-symbols-outlined text-[20px]">add_a_photo</span>
+            <span translate="no" className="material-symbols-outlined notranslate text-[20px]">add_a_photo</span>
             <span>Scan Label</span>
           </button>
           

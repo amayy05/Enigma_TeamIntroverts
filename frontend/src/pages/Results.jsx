@@ -22,7 +22,7 @@ export default function Results({ analysisResult, profile }) {
   if (!analysisResult) {
     return (
       <main className="p-8 flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-        <span className="material-symbols-outlined text-[80px] text-primary/30">search</span>
+        <span translate="no" className="material-symbols-outlined notranslate text-[80px] text-primary/30">search</span>
         <h2 className="font-display text-3xl text-on-surface">Nothing to show yet</h2>
         <p className="font-sans text-lg text-on-surface-variant">Head over to the analyzer to scan a new food label.</p>
         <button onClick={() => navigate('/analyze')} className="px-8 py-3 mt-4 rounded-full bg-primary text-white font-bold text-lg hover:scale-105 transition-transform shadow-soft">
@@ -58,7 +58,7 @@ export default function Results({ analysisResult, profile }) {
       {/* Header */}
       <div className="flex items-center gap-4">
         <button onClick={() => navigate('/analyze')} className="p-2 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors">
-          <span className="material-symbols-outlined text-on-surface-variant">arrow_back</span>
+          <span translate="no" className="material-symbols-outlined notranslate text-on-surface-variant">arrow_back</span>
         </button>
         <h1 className="font-display text-4xl text-on-surface">Insight Report</h1>
       </div>
@@ -74,7 +74,13 @@ export default function Results({ analysisResult, profile }) {
             <div className="font-sans text-on-surface-variant uppercase tracking-widest text-sm mb-2">Food Analyzed</div>
             <h2 className="font-display text-3xl font-bold text-on-surface">{food?.name || 'Unknown Food'}</h2>
           </div>
-          <RiskBadge status={overallStatus} size="lg" />
+          <div className="flex flex-col items-end gap-3 w-full md:w-auto mt-4 md:mt-0">
+             <RiskBadge status={overallStatus} size="lg" />
+             <div className="flex flex-col gap-2 w-full min-w-[200px]">
+                {confidence?.ingredient_list && <ConfidenceBar label="Ingredients Data" level={confidence.ingredient_list.toUpperCase()} />}
+                {confidence?.nutrition_info && <ConfidenceBar label="Nutrition Data" level={confidence.nutrition_info.toUpperCase()} />}
+             </div>
+          </div>
         </div>
 
         {explanation && (
@@ -83,6 +89,34 @@ export default function Results({ analysisResult, profile }) {
           </p>
         )}
       </section>
+
+      {/* Why Am I Seeing This Disclaimer */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="bg-primary/5 rounded-2xl p-6 border border-primary/20 flex gap-4 items-start shadow-sm h-full">
+          <span translate="no" className="material-symbols-outlined notranslate text-primary mt-1">info</span>
+          <div>
+            <h4 className="font-bold text-primary mb-1">Why am I seeing this?</h4>
+            <p className="font-sans text-on-surface-variant text-sm leading-relaxed">
+              Your result is personalized using the health conditions, allergies, and dietary preferences you provided. NutriShield does not label food universally as good or bad; it identifies information that may be relevant to your individual profile.
+            </p>
+          </div>
+        </section>
+
+        {/* Limitations */}
+        {limitations && limitations.length > 0 && (
+          <section className="bg-surface-container-high rounded-2xl p-6 border border-outline-variant/30 flex gap-4 items-start shadow-sm h-full">
+            <span translate="no" className="material-symbols-outlined notranslate text-outline mt-1">warning</span>
+            <div>
+              <h4 className="font-bold text-on-surface mb-2">Analysis Limitations</h4>
+              <ul className="list-disc list-outside ml-4 font-sans text-on-surface-variant text-sm leading-relaxed space-y-1">
+                {limitations.map((lim, idx) => (
+                  <li key={idx}>{lim}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+      </div>
 
       {/* Breakdowns & AI */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -95,7 +129,7 @@ export default function Results({ analysisResult, profile }) {
               {Object.entries(breakdown || {}).map(([key, cat]) => (
                 <div key={key} className="flex items-center justify-between py-3 border-b border-outline-variant/30 last:border-0">
                   <div className="flex items-center gap-3 text-on-surface-variant">
-                    <span className="material-symbols-outlined text-primary">{CATEGORY_LABELS[key]?.icon || 'info'}</span>
+                    <span translate="no" className="material-symbols-outlined notranslate text-primary">{CATEGORY_LABELS[key]?.icon || 'info'}</span>
                     <span className="font-sans font-bold">{CATEGORY_LABELS[key]?.label || key}</span>
                   </div>
                   <RiskBadge status={cat.status} />
@@ -103,6 +137,23 @@ export default function Results({ analysisResult, profile }) {
               ))}
              </div>
           </section>
+
+          {/* Nutrition Snapshot */}
+          {nutritionSummary && typeof nutritionSummary === 'object' && Object.keys(nutritionSummary).length > 0 && (
+            <section className="bg-white rounded-3xl p-8 shadow-sm border border-outline-variant/30">
+              <h3 className="font-display text-2xl text-on-surface mb-4">Nutrition Snapshot (per 100g)</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {Object.entries(nutritionSummary).map(([key, val]) => (
+                  <div key={key} className="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/30 text-center">
+                     <div className="text-xs font-sans text-on-surface-variant uppercase tracking-wider">{key.replace('_', ' ')}</div>
+                     <div className="text-xl font-display text-on-surface font-bold">
+                        {val !== null ? `${val}${key === 'calories' ? ' kcal' : (['sodium', 'potassium', 'phosphorus'].includes(key) ? 'mg' : 'g')}` : 'N/A'}
+                     </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Details */}
           {(allergenFindings?.length > 0 || ingredientFindings?.length > 0 || nutritionFindings?.length > 0) && (
@@ -142,7 +193,7 @@ export default function Results({ analysisResult, profile }) {
         {/* Chatbot */}
         <section className="bg-primary-container/10 rounded-3xl p-8 border border-primary-container/30 flex flex-col">
           <div className="flex items-center gap-3 mb-6">
-            <span className="material-symbols-outlined text-primary text-[28px]">eco</span>
+            <span translate="no" className="material-symbols-outlined notranslate text-primary text-[28px]">eco</span>
             <h3 className="font-display text-2xl text-on-surface">Ask NutriShield AI</h3>
           </div>
 
@@ -191,13 +242,20 @@ export default function Results({ analysisResult, profile }) {
                 disabled={!chatInput.trim() || chatLoading}
                 className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center hover:scale-105 shadow-soft transition-transform disabled:opacity-50"
               >
-                <span className="material-symbols-outlined text-[20px]">send</span>
+                <span translate="no" className="material-symbols-outlined notranslate text-[20px]">send</span>
               </button>
             </div>
           </div>
         </section>
 
       </div>
+
+      {/* Responsible Guidance / Medical Disclaimer */}
+      <footer className="mt-8 text-center px-4">
+         <p className="font-sans text-xs text-on-surface-variant max-w-3xl mx-auto opacity-70">
+           <strong>Medical Disclaimer:</strong> The information provided by NutriShield AI is for educational and informational purposes only and does not constitute medical advice. Always consult with a qualified healthcare provider regarding dietary changes, especially if you have chronic health conditions or severe allergies.
+         </p>
+      </footer>
     </main>
   );
 }

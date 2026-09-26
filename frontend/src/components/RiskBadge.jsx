@@ -22,7 +22,7 @@ export function RiskBadge({ status, size = 'md' }) {
       bg: 'bg-risk-safe',
       text: 'text-white',
       icon: 'eco',
-      label: 'Safe Choice'
+      label: 'Lower Concern'
     }
   };
 
@@ -38,7 +38,7 @@ export function RiskBadge({ status, size = 'md' }) {
 
   return (
     <div className={`inline-flex items-center font-bold font-sans uppercase tracking-wide rounded-full shadow-sm ${c.bg} ${c.text} ${sizeClasses[size]}`}>
-      <span className="material-symbols-outlined" style={{ fontSize: iconSizes[size], fontVariationSettings: "'FILL' 1" }}>
+      <span translate="no" className="material-symbols-outlined notranslate" style={{ fontSize: iconSizes[size], fontVariationSettings: "'FILL' 1" }}>
         {c.icon}
       </span>
       <span>{c.label}</span>

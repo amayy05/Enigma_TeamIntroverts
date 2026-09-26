@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Analyzer from './pages/Analyzer';
 import Results from './pages/Results';
+import Compare from './pages/Compare';
 import { api } from './services/api';
 
 const DEFAULT_PROFILE = {
@@ -65,9 +66,12 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-on-surface flex">
+    <div className="min-h-screen bg-background text-on-surface flex relative font-sans">
+      {/* Global Subtle Pattern Background - Optimized for scroll performance */}
+      <div className="fixed inset-0 z-0 opacity-10 bg-[url('/food_pattern.jpg')] bg-repeat bg-[length:400px] pointer-events-none"></div>
+
       <Sidebar profile={profile} />
-      <div className="flex-1 ml-64 flex flex-col min-h-screen">
+      <div className="flex-1 ml-64 flex flex-col min-h-screen relative z-10">
         <TopNav profile={profile} />
         <div className="flex-1">
           <Routes>
@@ -98,9 +102,16 @@ export default function App() {
                 profile={profile}
               />
             } />
+            <Route path="/compare" element={
+              <Compare
+                profile={profile}
+                demoFoods={demoFoods}
+              />
+            } />
           </Routes>
         </div>
       </div>
     </div>
   );
 }
+

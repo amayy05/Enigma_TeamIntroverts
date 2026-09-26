@@ -21,21 +21,33 @@ export const api = {
   // Profile
   getProfile: () => request('/profile'),
   saveProfile: (profile) => request('/profile', { method: 'POST', body: JSON.stringify(profile) }),
+  getHistory: () => request('/history'),
 
   // Food Analysis
   analyze: (food, profile) => request('/analyze', {
     method: 'POST',
     body: JSON.stringify({ food, profile }),
   }),
+  compare: (foodA, foodB, profile) => request('/compare', {
+    method: 'POST',
+    body: JSON.stringify({ foodA, foodB, profile }),
+  }),
 
   // Demo Foods
   getDemoFoods: () => request('/demo-foods'),
   getDemoFood: (id) => request(`/demo-foods/${id}`),
 
+  // Barcode Lookup
+  lookupBarcode: (code) => request(`/barcode/${code}`),
+
   // Chatbot
   chat: (question, riskResult, foodName, profile) => request('/chat', {
     method: 'POST',
     body: JSON.stringify({ question, riskResult, foodName, profile }),
+  }),
+  compareChat: (question, resultA, resultB, foodAName, foodBName, profile) => request('/compare-chat', {
+    method: 'POST',
+    body: JSON.stringify({ question, resultA, resultB, foodAName, foodBName, profile })
   }),
 
   // Image Extraction
